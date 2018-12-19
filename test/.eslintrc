@@ -4,6 +4,7 @@
   ],
   "rules": {
     "filenames/match-regex": 0,
-    "id-length": 0
+    "id-length": 0,
+    "no-restricted-syntax": 0
   }
 }
