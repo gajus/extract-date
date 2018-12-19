@@ -10,37 +10,13 @@ Extracts date from an arbitrary text input.
 
 {"gitdown": "contents"}
 
-## Principals
+## Features
 
-* Deterministic and unambiguous (input must include year; see [Date resolution without year](#date-resolution-without-year))
-* 0 or minimum configuration.
-
-### Date resolution without year
-
-When year is not part of the input (e.g. March 2nd), then `minimumAge` and `maximumAge` configuration determines the year value.
-
-* If the difference between the current month and the parsed month is greater or equal to `minimumAge`, then the year value is equal to the current year +1.
-* If the difference between the current month and the parsed month is lower or equal to `maximumAge`, then the year value is equal to the current year -1.
-* If the difference is within those two ranges, then the current year value is used.
-
-Example:
-
-* If the current date is 2000-12-01 and the parsed date is 10-01, then the month difference is -2.
-  * If `minimumAge` is 2, then the final date is 2001-10-01.
-  * If `minimumAge` is 3, then the final date is 2000-10-01.
-
-* If the current date is 2000-01-01 and the input date is 10-01, then the month difference is 9.
-  * If `maximumAge` is 10, then the final date is 2000-10-01.
-  * If `maximumAge` is 9, then the final date is 1999-10-01.
-
-## Configuration
-
-|Name|Description|Default|
-|---|---|---|
-|`format`|Token identifying the order of numeric date attributes within the string. Possible values: DMY, DYM, YDM, YMD. Used to resolve ambiguous dates, e.g. DD/MM/YYYY and MM/DD/YYYY.|N/A|
-|`maximumAge`|See [Date resolution without year](#date-resolution-without-year).|2|
-|`minimumAge`|See [Date resolution without year](#date-resolution-without-year).|2|
-|`timezone`|[TZ database name](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones). Used to resolve relative dates ("Today", "Tomorrow").|N/A|
+* Deterministic and unambiguous date parsing (input must include year; see [Date resolution without year](#date-resolution-without-year))
+* No date format configuration.
+* Recognises relative dates (yesterday, today, tomorrow).
+* Recognises weekday's (Monday, Tuesday, etc.).
+* Supports timezones (for relative date resolution) and locales.
 
 ## Usage
 
@@ -61,5 +37,105 @@ extractDate('uses `format` to resolve ambiguous dates 02/01/2000', {format: 'DMY
 
 extractDate('uses `timezone` to resolve relative dates such as today or tomorrow', {timezone: 'Europe/London'});
 // 2000-01-02 (assuming today is 2000-01-02)
+
+```
+
+### Configuration
+
+|Name|Description|Default|
+|---|---|---|
+|`format`|Token identifying the order of numeric date attributes within the string. Possible values: DMY, DYM, YDM, YMD. Used to resolve ambiguous dates, e.g. DD/MM/YYYY and MM/DD/YYYY.|N/A|
+|`maximumAge`|See [Date resolution without year](#date-resolution-without-year).|`Infinity`|
+|`minimumAge`|See [Date resolution without year](#date-resolution-without-year).|`Infinity`|
+|`timezone`|[TZ database name](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones). Used to resolve relative dates ("Today", "Tomorrow").|N/A|
+
+## Resolution of ambiguous dates
+
+### Date resolution without year
+
+When year is not part of the input (e.g. March 2nd), then `minimumAge` and `maximumAge` configuration determines the year value.
+
+* If the difference between the current month and the parsed month is greater or equal to `minimumAge`, then the year value is equal to the current year +1.
+* If the difference between the current month and the parsed month is lower or equal to `maximumAge`, then the year value is equal to the current year -1.
+* If the difference is within those two ranges, then the current year value is used.
+
+Example:
+
+* If the current date is 2000-12-01 and the parsed date is 10-01, then the month difference is -2.
+  * If `minimumAge` is 2, then the final date is 2001-10-01.
+  * If `minimumAge` is 3, then the final date is 2000-10-01.
+
+* If the current date is 2000-01-01 and the input date is 10-01, then the month difference is 9.
+  * If `maximumAge` is 10, then the final date is 2000-10-01.
+  * If `maximumAge` is 9, then the final date is 1999-10-01.
+
+Note: `minimumAge` comparison is done using absolute difference value.
+
+## Implementation
+
+Note: This section of the documentation is included for contributors.
+
+* `extract-date` includes a collection of formats (`./src/formats.js`).
+* Individual formats define their expectations (see [Format specification](#format-specification)).
+* The formats are attempted in the order of their specificity, i.e. "YYYY-MM-DD" is attempted before "MM-DD".
+* Formats are attempted against a tokenised version of the input (see [Input tokenisation](#input-tokenisation)).
+* The first format that can extract the date is used.
+
+### Input tokenisation
+
+* Individual formats define how many words make up the date.
+* `extract-date` splits input string into a collection of slices pairing words into phrases of the required length.
+* Format is attempted against each resulting phrase.
+
+Example:
+
+Given input "foo bar baz qux" and format:
+
+```js
+{
+  direction: 'YMD',
+  localised: false,
+  momentFormat: 'YYYY MM.DD',
+  wordCount: 2,
+  yearIsExplicit: true
+}
+
+```
+
+Input is broken down into:
+
+* "foo bar"
+* "bar baz"
+* "baz qux"
+
+collection and the format is attempted against each phrase until a match is found.
+
+### Format specification
+
+|Field|Description|
+|---|---|
+|`direction`|Identifies the order of numeric date attributes within the string. Possible values: DMY, DYM, YDM, YMD. Used to resolve ambiguous dates, e.g. DD/MM/YYYY and MM/DD/YYYY.|
+|`localised`|Identifies if the date is localised, i.e. includes names of the week day or month. A format that is localised is used only when `locale` configuration is provided.|
+|`momentFormat`|Identifies [`moment`](https://www.npmjs.org/package/moment) format used to attempt date extraction. `moment` is evaluated using the strict parser option.|
+|`wordCount`|Identifies how many words make up the date format.|
+|`yearIsExplicit`|Identifies whether the date format includes year.|
+
+Example formats:
+
+```js
+{
+  direction: 'YMD',
+  localised: false,
+  momentFormat: 'YYYY.MM.DD',
+  wordCount: 1,
+  yearIsExplicit: true
+},
+{
+  direction: 'DD MMMM',
+  localised: true,
+  momentFormat: 'DD MMMM',
+  wordCount: 2,
+  yearIsExplicit: false
+},
 
 ```
