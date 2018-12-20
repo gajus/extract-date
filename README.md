@@ -11,6 +11,8 @@ Extracts date from an arbitrary text input.
 
 * [extract-date 📅](#extract-date)
     * [Features](#extract-date-features)
+    * [Motivation](#extract-date-motivation)
+    * [Use case](#extract-date-use-case)
     * [Usage](#extract-date-usage)
         * [Configuration](#extract-date-usage-configuration)
     * [Resolution of ambiguous dates](#extract-date-resolution-of-ambiguous-dates)
@@ -28,6 +30,18 @@ Extracts date from an arbitrary text input.
 * Recognises relative dates (yesterday, today, tomorrow).
 * Recognises weekday's (Monday, Tuesday, etc.).
 * Supports timezones (for relative date resolution) and locales.
+
+<a name="extract-date-motivation"></a>
+## Motivation
+
+I am creating a large scale data aggregation platform (https://applaudience.com/). I have observed that the date-matching patterns and site specific date validation logic is repeating and could be abstracted into a universal function as long as minimum information about the expected pattern is provided (such as the `direction` configuration). My motivation for creating such abstraction is to reduce the amount of repetitive logic that we use to extract dates from multiple sources.
+
+<a name="extract-date-use-case"></a>
+## Use case
+
+The intended use case is extracting date of future events from blobs of text that may contain auxiliary information, e.g. 'Event at 14:00 2019-01-01 (2D)'.
+
+The emphasis on the _future_ events is because resolving dates such 'today' (relative dates) and 'Wednesday' (weekday dates) requires knowing the offset date. If your input sources refer predominantly to future events, then the ambiguity can be resolved using the present date.
 
 <a name="extract-date-usage"></a>
 ## Usage
