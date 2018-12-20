@@ -105,7 +105,7 @@ Note: `minimumAge` comparison is done using absolute difference value.
 
 Note: This section of the documentation is included for contributors.
 
-* `extract-date` includes a collection of formats (`./src/formats.js`).
+* `extract-date` includes a collection of formats ([`./src/createFormats.js`](./src/createFormats.js)).
 * Individual formats define their expectations (see [Format specification](#format-specification)).
 * The formats are attempted in the order of their specificity, i.e. "YYYY-MM-DD" is attempted before "MM-DD".
 * Formats are attempted against a tokenised version of the input (see [Input tokenisation](#input-tokenisation)).
