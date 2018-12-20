@@ -28,7 +28,7 @@ Extracts date from an arbitrary text input.
 * Deterministic and unambiguous date parsing (input must include year; see [Date resolution without year](#date-resolution-without-year))
 * No date format configuration.
 * Recognises relative dates (yesterday, today, tomorrow).
-* Recognises weekday's (Monday, Tuesday, etc.).
+* Recognises weekdays (Monday, Tuesday, etc.).
 * Supports timezones (for relative date resolution) and locales.
 
 <a name="extract-date-motivation"></a>
