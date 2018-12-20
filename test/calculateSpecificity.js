@@ -25,7 +25,7 @@ test('tokens including YYYY, (MMMM, MM, MM, M), (DD, D, Do) have the highest spe
   for (const tokens of formats) {
     const format = tokens.join(' ');
 
-    t.true(calculateSpecificity(format) === 60 + format.length);
+    t.true(calculateSpecificity(format) === 80 + format.length);
   }
 });
 

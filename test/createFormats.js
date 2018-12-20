@@ -34,6 +34,8 @@ YYYY.D.M
 YYYY.M.D
 YYYY/M/D
 YYYYMMDD
+DD.MM.YY
+D.M.YY
 dddd DD MMMM
 dddd Do MMMM
 dddd MMMM DD
@@ -89,5 +91,6 @@ test('orders formats by their specificity (resolves conflicts using localeCompar
     })
     .join('\n');
 
-  t.true(order === expectedOrder);
+  // eslint-disable-next-line ava/prefer-power-assert
+  t.is(order, expectedOrder);
 });

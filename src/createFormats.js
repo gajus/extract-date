@@ -76,6 +76,14 @@ export default () => {
     {
       direction: 'MDY',
       momentFormat: 'M.D.YYYY'
+    },
+    {
+      direction: 'MDY',
+      momentFormat: 'DD.MM.YY'
+    },
+    {
+      direction: 'MDY',
+      momentFormat: 'D.M.YY'
     }
   ];
 
