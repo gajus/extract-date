@@ -20,6 +20,7 @@ Extracts date from an arbitrary text input.
     * [Implementation](#extract-date-implementation)
         * [Input tokenisation](#extract-date-implementation-input-tokenisation)
         * [Format specification](#extract-date-implementation-format-specification)
+    * [Related projects](#extract-date-related-projects)
 
 
 <a name="extract-date-features"></a>
@@ -171,3 +172,8 @@ Example formats:
 },
 
 ```
+
+<a name="extract-date-related-projects"></a>
+## Related projects
+
+* [`extract-time`](https://github.com/gajus/extract-time) – Extracts time from an arbitrary text input.
