@@ -149,3 +149,7 @@ Example formats:
 },
 
 ```
+
+## Related projects
+
+* [`extract-time`](https://github.com/gajus/extract-time) – Extracts time from an arbitrary text input.
