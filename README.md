@@ -71,7 +71,7 @@ extractDate('uses `timezone` to resolve relative dates such as today or tomorrow
 
 |Name|Description|Default|
 |---|---|---|
-|`format`|Token identifying the order of numeric date attributes within the string. Possible values: DMY, DYM, YDM, YMD. Used to resolve ambiguous dates, e.g. DD/MM/YYYY and MM/DD/YYYY.|N/A|
+|`format`|Token identifying the order of numeric date attributes within the string. Possible values: DM, DMY, DYM, MD, YDM, YMD. Used to resolve ambiguous dates, e.g. DD/MM/YYYY and MM/DD/YYYY.|N/A|
 |`maximumAge`|See [Date resolution without year](#date-resolution-without-year).|`Infinity`|
 |`minimumAge`|See [Date resolution without year](#date-resolution-without-year).|`Infinity`|
 |`timezone`|[TZ database name](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones). Used to resolve relative dates ("Today", "Tomorrow").|N/A|
