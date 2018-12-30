@@ -228,27 +228,27 @@ export default () => {
 
   const impliedYear = [
     {
-      direction: 'YDM',
+      direction: 'DM',
       momentFormat: 'DD/MM'
     },
     {
-      direction: 'YDM',
+      direction: 'DM',
       momentFormat: 'D/M'
     },
     {
-      direction: 'YDM',
+      direction: 'DM',
       momentFormat: 'DD-MM'
     },
     {
-      direction: 'YDM',
+      direction: 'DM',
       momentFormat: 'D-M'
     },
     {
-      direction: 'YMD',
+      direction: 'MD',
       momentFormat: 'MM-DD'
     },
     {
-      direction: 'YMD',
+      direction: 'MD',
       momentFormat: 'M-D'
     }
   ];

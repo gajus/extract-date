@@ -22,7 +22,7 @@ test('assumes last year if month difference is greater or equal to `maximumAge`'
   clock.tick(moment('2000-01-01').valueOf());
 
   const configuration = {
-    direction: 'YMD',
+    direction: 'MD',
     maximumAge: 10
   };
 
@@ -45,7 +45,7 @@ test('does not assume last year when `maximumAge` is `Infinity`', (t) => {
   clock.tick(moment('2000-01-01').valueOf());
 
   const configuration = {
-    direction: 'YMD',
+    direction: 'MD',
     maximumAge: Infinity
   };
 
@@ -67,7 +67,7 @@ test('increments year value if month difference is greater or equal to `minimumA
   clock.tick(moment('2000-12-01').valueOf());
 
   const configuration = {
-    direction: 'YMD',
+    direction: 'MD',
     minimumAge: 2
   };
 
@@ -90,7 +90,7 @@ test('does not increment year value if `minimumAge` is `Infinity`', (t) => {
   clock.tick(moment('2000-12-01').valueOf());
 
   const configuration = {
-    direction: 'YMD',
+    direction: 'MD',
     minimumAge: Infinity
   };
 
@@ -112,7 +112,7 @@ test('`maximumAge` and `minimumAge` can be combined', (t) => {
   clock.tick(moment('2000-06-01').valueOf());
 
   const configuration = {
-    direction: 'YMD',
+    direction: 'MD',
     maximumAge: 2,
     minimumAge: 2
   };

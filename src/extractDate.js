@@ -10,7 +10,7 @@ import splitToWords from './splitToWords';
 import createFormats from './createFormats';
 import Logger from './Logger';
 
-type FormatType = 'DMY' | 'DYM' | 'YDM' | 'YMD';
+type FormatType = 'DM' | 'DMY' | 'DYM' | 'MD' | 'YDM' | 'YMD';
 
 type UserConfigurationType = {|
   +direction?: FormatType,
