@@ -25,7 +25,7 @@ test('does not extract relative dates when locale is undefined', (t) => {
     timezone: 'Europe/London'
   };
 
-  t.is(extractDate('today', configuration), null);
+  t.deepEqual(extractDate('today', configuration), []);
 });
 
 test('does not extract relative dates when timezone is undefined', (t) => {
@@ -35,7 +35,7 @@ test('does not extract relative dates when timezone is undefined', (t) => {
     locale: 'en'
   };
 
-  t.is(extractDate('today', configuration), null);
+  t.deepEqual(extractDate('today', configuration), []);
 });
 
 test('extracts relative date (yesterday)', (t) => {
@@ -46,7 +46,7 @@ test('extracts relative date (yesterday)', (t) => {
     timezone: 'Europe/London'
   };
 
-  t.is(extractDate('yesterday', configuration), '2000-01-01');
+  t.deepEqual(extractDate('yesterday', configuration), [{date: '2000-01-01'}]);
 });
 
 test('extracts relative date (today)', (t) => {
@@ -57,7 +57,7 @@ test('extracts relative date (today)', (t) => {
     timezone: 'Europe/London'
   };
 
-  t.is(extractDate('today', configuration), '2000-01-01');
+  t.deepEqual(extractDate('today', configuration), [{date: '2000-01-01'}]);
 });
 
 test('extracts relative date (tomorrow)', (t) => {
@@ -68,5 +68,5 @@ test('extracts relative date (tomorrow)', (t) => {
     timezone: 'Europe/London'
   };
 
-  t.is(extractDate('tomorrow', configuration), '2000-01-02');
+  t.deepEqual(extractDate('tomorrow', configuration), [{date: '2000-01-02'}]);
 });

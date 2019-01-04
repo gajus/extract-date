@@ -10,6 +10,10 @@ import splitToWords from './splitToWords';
 import createFormats from './createFormats';
 import Logger from './Logger';
 
+type DateMatchType = {|
+  +date: string
+|};
+
 type FormatType = 'DM' | 'DMY' | 'DYM' | 'MD' | 'YDM' | 'YMD';
 
 type UserConfigurationType = {|
@@ -38,7 +42,7 @@ const defaultConfiguration = {
 };
 
 // eslint-disable-next-line complexity
-export default (subject: string, userConfiguration: UserConfigurationType = defaultConfiguration): string | null => {
+export default (subject: string, userConfiguration: UserConfigurationType = defaultConfiguration): $ReadOnlyArray<DateMatchType> => {
   const configuration: ConfigurationType = {
     ...defaultConfiguration,
     ...userConfiguration
@@ -66,7 +70,9 @@ export default (subject: string, userConfiguration: UserConfigurationType = defa
 
   const formats = createFormats();
 
-  const words = splitToWords(subject);
+  let words = splitToWords(subject);
+
+  const matches = [];
 
   for (const format of formats) {
     const movingChunks = createMovingChunks(words, format.wordCount);
@@ -85,14 +91,22 @@ export default (subject: string, userConfiguration: UserConfigurationType = defa
           const maybeDate = extractRelativeDate(input, configuration.locale, configuration.timezone);
 
           if (maybeDate) {
-            return maybeDate;
+            words = words.slice(format.wordCount);
+
+            matches.push({
+              date: maybeDate
+            });
           }
         }
       } else if (format.momentFormat === 'ddd' || format.momentFormat === 'dddd') {
         const date = moment(input, format.momentFormat, true);
 
         if (date.isValid()) {
-          return date.format('YYYY-MM-DD');
+          words = words.slice(format.wordCount);
+
+          matches.push({
+            date: date.format('YYYY-MM-DD')
+          });
         }
       } else {
         const yearIsExplicit = typeof format.yearIsExplicit === 'boolean' ? format.yearIsExplicit : true;
@@ -114,7 +128,11 @@ export default (subject: string, userConfiguration: UserConfigurationType = defa
             continue;
           }
 
-          return date.format('YYYY-MM-DD');
+          words = words.slice(format.wordCount);
+
+          matches.push({
+            date: date.format('YYYY-MM-DD')
+          });
         } else {
           const date = moment(input, format.momentFormat, true);
 
@@ -152,11 +170,15 @@ export default (subject: string, userConfiguration: UserConfigurationType = defa
             continue;
           }
 
-          return maybeDate.format('YYYY-MM-DD');
+          words = words.slice(format.wordCount);
+
+          matches.push({
+            date: maybeDate.format('YYYY-MM-DD')
+          });
         }
       }
     }
   }
 
-  return null;
+  return matches;
 };
