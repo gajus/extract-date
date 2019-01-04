@@ -176,4 +176,5 @@ Example formats:
 <a name="extract-date-related-projects"></a>
 ## Related projects
 
+* [`extract-price`](https://github.com/gajus/extract-price) – Extracts price from an arbitrary text input.
 * [`extract-time`](https://github.com/gajus/extract-time) – Extracts time from an arbitrary text input.
