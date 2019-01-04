@@ -51,19 +51,19 @@ The emphasis on the _future_ events is because resolving dates such 'today' (rel
 import extractDate from 'extract-date';
 
 extractDate('extracts date from anywhere within the input 2000-01-02');
-// 2000-01-02
+// [{date: '2000-01-02'}]
 
-extractDate('extracts only the first date from the input 2000-01-02, 2000-01-03');
-// 2000-01-02
+extractDate('extracts multiple dates located anywhere within the input: 2000-01-02, 2000-01-03');
+// [{date: '2000-01-02'}]
 
-extractDate('produces a null when date is ambiguous 02/01/2000');
-// null
+extractDate('ignores ambiguous dates');
+// []
 
 extractDate('uses `format` to resolve ambiguous dates 02/01/2000', {format: 'DMY'});
-// 2000-01-02
+// [{date: '2000-01-02'}]
 
 extractDate('uses `timezone` to resolve relative dates such as today or tomorrow', {timezone: 'Europe/London'});
-// 2000-01-02 (assuming today is 2000-01-02)
+// [{date: '2000-01-02'}] (assuming that today is 2000-01-02)
 
 ```
 
@@ -108,9 +108,9 @@ Note: This section of the documentation is included for contributors.
 
 * `extract-date` includes a collection of formats ([`./src/createFormats.js`](./src/createFormats.js)).
 * Individual formats define their expectations (see [Format specification](#format-specification)).
-* The formats are attempted in the order of their specificity, i.e. "YYYY-MM-DD" is attempted before "MM-DD".
+* Formats are attempted in the order of their specificity, i.e. "YYYY-MM-DD" is attempted before "MM-DD".
 * Formats are attempted against a tokenised version of the input (see [Input tokenisation](#input-tokenisation)).
-* The first format that can extract the date is used.
+* Matching date format advances further search past the matching date string.
 
 <a name="extract-date-implementation-input-tokenisation"></a>
 ### Input tokenisation
