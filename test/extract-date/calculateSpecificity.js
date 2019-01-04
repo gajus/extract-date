@@ -2,7 +2,7 @@
 
 import test from 'ava';
 import cartesian from 'cartesian';
-import calculateSpecificity from '../src/calculateSpecificity';
+import calculateSpecificity from '../../src/calculateSpecificity';
 
 test('tokens including YYYY, (MMMM, MM, MM, M), (DD, D, Do) have the highest specificity', (t) => {
   const formats = cartesian([

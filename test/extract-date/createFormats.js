@@ -1,7 +1,7 @@
 // @flow
 
 import test from 'ava';
-import createFormats from '../src/createFormats';
+import createFormats from '../../src/createFormats';
 
 const expectedOrder = `MMMM YYYY ddd Do
 MMMM YYYY ddd D

@@ -1,7 +1,7 @@
 // @flow
 
 import test from 'ava';
-import createMovingChunks from '../src/createMovingChunks';
+import createMovingChunks from '../../src/createMovingChunks';
 
 test('creates an array of fixed length text slices, each offset by 1 character', (t) => {
   t.deepEqual(createMovingChunks(['a', 'b', 'c', 'd'], 2), [

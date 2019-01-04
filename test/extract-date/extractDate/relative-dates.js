@@ -6,7 +6,7 @@ import test, {
 } from 'ava';
 import sinon from 'sinon';
 import moment from 'moment';
-import extractDate from '../../src/extractDate';
+import extractDate from '../../../src/extractDate';
 
 let clock;
 

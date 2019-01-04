@@ -1,7 +1,7 @@
 // @flow
 
 import test from 'ava';
-import splitToWords from '../src/splitToWords';
+import splitToWords from '../../src/splitToWords';
 
 test('splits input to words', (t) => {
   t.deepEqual(splitToWords('foo bar baz'), [

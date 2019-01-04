@@ -5,7 +5,7 @@ import test, {
   beforeEach
 } from 'ava';
 import sinon from 'sinon';
-import extractDate from '../../src/extractDate';
+import extractDate from '../../../src/extractDate';
 
 let clock;
 
