@@ -14,7 +14,7 @@ type DateMatchType = {|
   +date: string
 |};
 
-type DirectionType = 'DM' | 'DMY' | 'DYM' | 'MD' | 'YDM' | 'YMD';
+type DirectionType = 'DM' | 'DMY' | 'DYM' | 'MD' | 'YDM' | 'YMD' | 'MDY';
 
 type UserConfigurationType = {|
   +direction?: DirectionType,
