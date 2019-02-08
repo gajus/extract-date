@@ -77,7 +77,11 @@ export default (subject: string, userConfiguration: UserConfigurationType = defa
   for (const format of formats) {
     const movingChunks = createMovingChunks(words, format.wordCount);
 
+    let chunkIndex = 0;
+
     for (const movingChunk of movingChunks) {
+      const wordOffset = ++chunkIndex * format.wordCount;
+
       const input = movingChunk.join(' ');
 
       log.trace('testing "%s" input using "%s" format (%s direction)', input, format.momentFormat, format.direction || 'no');
@@ -91,7 +95,7 @@ export default (subject: string, userConfiguration: UserConfigurationType = defa
           const maybeDate = extractRelativeDate(input, configuration.locale, configuration.timezone);
 
           if (maybeDate) {
-            words = words.slice(format.wordCount);
+            words = words.slice(wordOffset);
 
             log.debug('matched using relative date format');
 
@@ -104,7 +108,7 @@ export default (subject: string, userConfiguration: UserConfigurationType = defa
         const date = moment(input, format.momentFormat, true);
 
         if (date.isValid()) {
-          words = words.slice(format.wordCount);
+          words = words.slice(wordOffset);
 
           log.debug('matched using week name format');
 
@@ -134,7 +138,7 @@ export default (subject: string, userConfiguration: UserConfigurationType = defa
             continue;
           }
 
-          words = words.slice(format.wordCount);
+          words = words.slice(wordOffset);
 
           log.debug('matched using %s format', format.momentFormat);
 
@@ -180,7 +184,7 @@ export default (subject: string, userConfiguration: UserConfigurationType = defa
             continue;
           }
 
-          words = words.slice(format.wordCount);
+          words = words.slice(wordOffset);
 
           log.debug('matched using %s format', format.momentFormat);
 
