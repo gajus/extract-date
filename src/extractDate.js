@@ -126,7 +126,9 @@ export default (subject: string, userConfiguration: UserConfigurationType = defa
             continue;
           }
 
-          if (format.direction && format.direction !== configuration.direction) {
+          if (format.direction && configuration.direction && format.momentFormat.includes('YYYY') && format.direction.replace('Y', '') === configuration.direction.replace('Y', '')) {
+            log.debug('matched format using YYYY; month-day direction matches');
+          } else if (format.direction && format.direction !== configuration.direction) {
             log.trace('discarding match; direction mismatch');
 
             continue;
