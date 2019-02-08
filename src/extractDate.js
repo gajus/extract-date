@@ -80,7 +80,7 @@ export default (subject: string, userConfiguration: UserConfigurationType = defa
     for (const movingChunk of movingChunks) {
       const input = movingChunk.join(' ');
 
-      log.trace('testing "%s" input using "%s" format', input, format.momentFormat);
+      log.trace('testing "%s" input using "%s" format (%s direction)', input, format.momentFormat, format.direction || 'no');
 
       if (format.momentFormat === 'R') {
         if (!configuration.locale) {
@@ -93,6 +93,8 @@ export default (subject: string, userConfiguration: UserConfigurationType = defa
           if (maybeDate) {
             words = words.slice(format.wordCount);
 
+            log.debug('matched using relative date format');
+
             matches.push({
               date: maybeDate
             });
@@ -103,6 +105,8 @@ export default (subject: string, userConfiguration: UserConfigurationType = defa
 
         if (date.isValid()) {
           words = words.slice(format.wordCount);
+
+          log.debug('matched using week name format');
 
           matches.push({
             date: date.format('YYYY-MM-DD')
@@ -119,6 +123,8 @@ export default (subject: string, userConfiguration: UserConfigurationType = defa
           }
 
           if (format.direction && format.direction !== configuration.direction) {
+            log.trace('discarding match; direction mismatch');
+
             continue;
           }
 
@@ -129,6 +135,8 @@ export default (subject: string, userConfiguration: UserConfigurationType = defa
           }
 
           words = words.slice(format.wordCount);
+
+          log.debug('matched using %s format', format.momentFormat);
 
           matches.push({
             date: date.format('YYYY-MM-DD')
@@ -161,6 +169,8 @@ export default (subject: string, userConfiguration: UserConfigurationType = defa
           }
 
           if (format.direction && format.direction !== configuration.direction) {
+            log.trace('discarding match; direction mismatch');
+
             continue;
           }
 
@@ -171,6 +181,8 @@ export default (subject: string, userConfiguration: UserConfigurationType = defa
           }
 
           words = words.slice(format.wordCount);
+
+          log.debug('matched using %s format', format.momentFormat);
 
           matches.push({
             date: maybeDate.format('YYYY-MM-DD')
