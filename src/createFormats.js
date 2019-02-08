@@ -294,6 +294,10 @@ export default () => {
       };
     })
     .sort((a, b) => {
+      if (a.wordCount !== b.wordCount) {
+        return b.wordCount - a.wordCount;
+      }
+
       if (b.specificity === a.specificity) {
         return a.momentFormat.localeCompare(b.momentFormat);
       }
