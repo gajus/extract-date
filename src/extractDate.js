@@ -126,7 +126,10 @@ export default (subject: string, userConfiguration: UserConfigurationType = defa
             continue;
           }
 
-          if (format.direction && configuration.direction && format.momentFormat.includes('YYYY') && format.direction.replace('Y', '') === configuration.direction.replace('Y', '')) {
+          const formatDirection = format.direction;
+          const configurationDirection = configuration.direction;
+
+          if (formatDirection && configurationDirection && format.momentFormat.includes('YYYY') && formatDirection.replace('Y', '') === configurationDirection.replace('Y', '')) {
             log.debug('matched format using YYYY; month-day direction matches');
           } else if (format.direction && format.direction !== configuration.direction) {
             log.trace('discarding match; direction mismatch');
