@@ -4,12 +4,24 @@ import cartesian from 'cartesian';
 import calculateSpecificity from './calculateSpecificity';
 
 export default () => {
+  // The reason `yearFirstDashSeparator` and `yearFirstSlashSeparator` formats do not have direction is because
+  // there are no known regions that use YYYY-DD-MM format.
+  // https://en.wikipedia.org/wiki/Date_format_by_country
   const yearFirstDashSeparator = [
     {
       momentFormat: 'YYYY-MM-DD'
     },
     {
       momentFormat: 'YYYY-M-D'
+    }
+  ];
+
+  const yearFirstSlashSeparator = [
+    {
+      momentFormat: 'YYYY/MM/DD'
+    },
+    {
+      momentFormat: 'YYYY/M/D'
     }
   ];
 
@@ -29,15 +41,6 @@ export default () => {
     {
       direction: 'YDM',
       momentFormat: 'YYYY.D.M'
-    }
-  ];
-
-  const yearFirstSlashSeparator = [
-    {
-      momentFormat: 'YYYY/MM/DD'
-    },
-    {
-      momentFormat: 'YYYY/M/D'
     }
   ];
 
