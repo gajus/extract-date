@@ -14,10 +14,10 @@ type DateMatchType = {|
   +date: string
 |};
 
-type FormatType = 'DM' | 'DMY' | 'DYM' | 'MD' | 'YDM' | 'YMD';
+type DirectionType = 'DM' | 'DMY' | 'DYM' | 'MD' | 'YDM' | 'YMD';
 
 type UserConfigurationType = {|
-  +direction?: FormatType,
+  +direction?: DirectionType,
   +locale?: string,
   +maximumAge?: number,
   +minimumAge?: number,
@@ -25,7 +25,7 @@ type UserConfigurationType = {|
 |};
 
 type ConfigurationType = {|
-  +direction?: FormatType,
+  +direction?: DirectionType,
   +locale: string,
   +maximumAge: number,
   +minimumAge: number,
