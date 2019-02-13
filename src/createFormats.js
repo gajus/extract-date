@@ -238,30 +238,48 @@ export default () => {
   ];
 
   const impliedYear = [
-    {
-      direction: 'DM',
-      momentFormat: 'DD/MM'
-    },
-    {
-      direction: 'DM',
-      momentFormat: 'D/M'
-    },
-    {
-      direction: 'DM',
-      momentFormat: 'DD-MM'
-    },
-    {
-      direction: 'DM',
-      momentFormat: 'D-M'
-    },
-    {
-      direction: 'MD',
-      momentFormat: 'MM-DD'
-    },
-    {
-      direction: 'MD',
-      momentFormat: 'M-D'
-    }
+    ...cartesian([
+      [
+        'DD',
+        'D'
+      ],
+      [
+        '/',
+        '-',
+        '.'
+      ],
+      [
+        'MM',
+        'M'
+      ]
+    ])
+      .map((combination) => {
+        return {
+          direction: 'DM',
+          momentFormat: combination.join('')
+        };
+      }),
+    ...cartesian([
+      [
+        'MM',
+        'M'
+      ],
+      [
+        '/',
+        '-',
+        '.'
+      ],
+      [
+        'DD',
+        'D'
+      ]
+    ])
+      .map((combination) => {
+        return {
+          direction: 'MD',
+          momentFormat: combination.join('')
+        };
+      })
   ];
 
   const relative = [
