@@ -11,8 +11,10 @@ export default (input: string): string => {
 
       .replace(/(\d+)\s\/\s(\d+)/, '$1/$2')
 
-      // .replace(/,/g, ' ')
-      // .replace(/[.:;] /g, ' ')
+      // Ignore commas to capture formats such as 'Monday 20, May
+      .replace(/,/g, ' ')
+
+      .replace(/[.:;] /g, ' ')
       .replace(/\s+/g, ' ')
       .trim();
 
