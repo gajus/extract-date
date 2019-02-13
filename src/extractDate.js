@@ -9,28 +9,11 @@ import extractRelativeDate from './extractRelativeDate';
 import splitToWords from './splitToWords';
 import createFormats from './createFormats';
 import Logger from './Logger';
-
-type DateMatchType = {|
-  +date: string
-|};
-
-type DirectionType = 'DM' | 'DMY' | 'DYM' | 'MD' | 'YDM' | 'YMD' | 'MDY';
-
-type UserConfigurationType = {|
-  +direction?: DirectionType,
-  +locale?: string,
-  +maximumAge?: number,
-  +minimumAge?: number,
-  +timezone?: string
-|};
-
-type ConfigurationType = {|
-  +direction?: DirectionType,
-  +locale: string,
-  +maximumAge: number,
-  +minimumAge: number,
-  +timezone?: string
-|};
+import type {
+  ConfigurationType,
+  DateMatchType,
+  UserConfigurationType
+} from './types';
 
 const log = Logger.child({
   namespace: 'extractDate'
