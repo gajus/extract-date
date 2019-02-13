@@ -81,11 +81,11 @@ export default () => {
       momentFormat: 'M.D.YYYY'
     },
     {
-      direction: 'MDY',
+      direction: 'DMY',
       momentFormat: 'DD.MM.YY'
     },
     {
-      direction: 'MDY',
+      direction: 'DMY',
       momentFormat: 'D.M.YY'
     }
   ];
