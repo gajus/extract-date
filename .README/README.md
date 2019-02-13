@@ -37,7 +37,7 @@ extractDate('extracts date from anywhere within the input 2000-01-02');
 // [{date: '2000-01-02'}]
 
 extractDate('extracts multiple dates located anywhere within the input: 2000-01-02, 2000-01-03');
-// [{date: '2000-01-02'}]
+// [{date: '2000-01-02'}, {date: '2000-01-03'}]
 
 extractDate('ignores ambiguous dates');
 // []
@@ -46,7 +46,7 @@ extractDate('uses `direction` to resolve ambiguous dates 02/01/2000', {direction
 // [{date: '2000-01-02'}]
 
 extractDate('uses `timezone` to resolve relative dates such as today or tomorrow', {timezone: 'Europe/London'});
-// [{date: '2000-01-02'}] (assuming that today is 2000-01-02)
+// [{date: '2000-01-02'}, {date: '2000-01-03'}] (assuming that today is 2000-01-02)
 
 ```
 
