@@ -6,8 +6,8 @@ import moment from 'moment-timezone';
 import cldr from 'cldr';
 import createMovingChunks from './createMovingChunks';
 import extractRelativeDate from './extractRelativeDate';
-import splitToWords from './splitToWords';
 import createFormats from './createFormats';
+import normalizeInput from './normalizeInput';
 import Logger from './Logger';
 import type {
   ConfigurationType,
@@ -25,7 +25,13 @@ const defaultConfiguration = {
 };
 
 // eslint-disable-next-line complexity
-export default (subject: string, userConfiguration: UserConfigurationType = defaultConfiguration): $ReadOnlyArray<DateMatchType> => {
+export default (input: string, userConfiguration: UserConfigurationType = defaultConfiguration): $ReadOnlyArray<DateMatchType> => {
+  log.debug('attempting to extract date from "%s" input', input);
+
+  const normalizedInput = normalizeInput(input);
+
+  log.debug('normalized input to "%s"', normalizedInput);
+
   const configuration: ConfigurationType = {
     ...defaultConfiguration,
     ...userConfiguration
@@ -49,11 +55,11 @@ export default (subject: string, userConfiguration: UserConfigurationType = defa
 
   log.debug({
     configuration
-  }, 'attempting to extract date from "%s" input', subject);
+  }, 'attempting to extract date from "%s" input', normalizedInput);
 
   const formats = createFormats();
 
-  let words = splitToWords(subject);
+  let words = normalizedInput.split(' ');
 
   const matches = [];
 
@@ -65,9 +71,9 @@ export default (subject: string, userConfiguration: UserConfigurationType = defa
     for (const movingChunk of movingChunks) {
       const wordOffset = ++chunkIndex * format.wordCount;
 
-      const input = movingChunk.join(' ');
+      const subject = movingChunk.join(' ');
 
-      log.trace('testing "%s" input using "%s" format (%s direction)', input, format.momentFormat, format.direction || 'no');
+      log.trace('testing "%s" input using "%s" format (%s direction)', subject, format.momentFormat, format.direction || 'no');
 
       if (format.momentFormat === 'R') {
         if (!configuration.locale) {
@@ -75,7 +81,7 @@ export default (subject: string, userConfiguration: UserConfigurationType = defa
         } else if (!configuration.timezone) {
           log.trace('cannot attempt format without `timezone` configuration');
         } else {
-          const maybeDate = extractRelativeDate(input, configuration.locale, configuration.timezone);
+          const maybeDate = extractRelativeDate(subject, configuration.locale, configuration.timezone);
 
           if (maybeDate) {
             words = words.slice(wordOffset);
@@ -88,7 +94,7 @@ export default (subject: string, userConfiguration: UserConfigurationType = defa
           }
         }
       } else if (format.momentFormat === 'ddd' || format.momentFormat === 'dddd') {
-        const date = moment(input, format.momentFormat, true);
+        const date = moment(subject, format.momentFormat, true);
 
         if (date.isValid()) {
           words = words.slice(wordOffset);
@@ -103,7 +109,7 @@ export default (subject: string, userConfiguration: UserConfigurationType = defa
         const yearIsExplicit = typeof format.yearIsExplicit === 'boolean' ? format.yearIsExplicit : true;
 
         if (yearIsExplicit) {
-          const date = moment(input, format.momentFormat, true);
+          const date = moment(subject, format.momentFormat, true);
 
           if (!date.isValid()) {
             continue;
@@ -134,7 +140,7 @@ export default (subject: string, userConfiguration: UserConfigurationType = defa
             date: date.format('YYYY-MM-DD')
           });
         } else {
-          const date = moment(input, format.momentFormat, true);
+          const date = moment(subject, format.momentFormat, true);
 
           if (!date.isValid()) {
             continue;
