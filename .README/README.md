@@ -39,7 +39,7 @@ extractDate('extracts date from anywhere within the input 2000-01-02');
 extractDate('extracts multiple dates located anywhere within the input: 2000-01-02, 2000-01-03');
 // [{date: '2000-01-02'}, {date: '2000-01-03'}]
 
-extractDate('ignores ambiguous dates');
+extractDate('ignores ambiguous dates 02/01/2000');
 // []
 
 extractDate('uses `direction` to resolve ambiguous dates 02/01/2000', {direction: 'DMY'});
