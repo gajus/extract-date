@@ -20,7 +20,7 @@ const normalizedFixtureDates = fixtureDates
     return self.indexOf(fixture) === index;
   })
   .map((fixture) => {
-    return JSON.parse(fixture)
+    return JSON.parse(fixture);
   })
   .map((fixture) => {
     return {
@@ -34,10 +34,6 @@ const normalizedFixtureDates = fixtureDates
   });
 
 for (const fixtureDate of normalizedFixtureDates) {
-  // if (fixtureDate.subject !== 'Monday 20, May') {
-  //   continue;
-  // }
-
   test('extracts dates from "' + fixtureDate.subject + '" fixture using ' + JSON.stringify(fixtureDate.configuration) + ' configuration at ' + fixtureDate.date + ' date', (t) => {
     const clock = sinon.useFakeTimers();
 
