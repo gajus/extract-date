@@ -73,8 +73,6 @@ export default (input: string, userConfiguration: UserConfigurationType = defaul
 
       const subject = movingChunk.join(' ');
 
-      log.trace('testing "%s" input using "%s" format (%s direction)', subject, format.momentFormat, format.direction || 'no');
-
       if (format.momentFormat === 'R') {
         if (!configuration.locale) {
           log.trace('cannot attempt format without `locale` configuration');
@@ -86,7 +84,7 @@ export default (input: string, userConfiguration: UserConfigurationType = defaul
           if (maybeDate) {
             words = words.slice(wordOffset);
 
-            log.debug('matched using relative date format');
+            log.debug('matched "%s" input using "%s" format (%s direction)', subject, format.momentFormat, format.direction || 'no');
 
             matches.push({
               date: maybeDate
@@ -99,7 +97,7 @@ export default (input: string, userConfiguration: UserConfigurationType = defaul
         if (date.isValid()) {
           words = words.slice(wordOffset);
 
-          log.debug('matched using week name format');
+          log.debug('matched "%s" input using "%s" format (%s direction)', subject, format.momentFormat, format.direction || 'no');
 
           matches.push({
             date: date.format('YYYY-MM-DD')
@@ -134,7 +132,7 @@ export default (input: string, userConfiguration: UserConfigurationType = defaul
 
           words = words.slice(wordOffset);
 
-          log.debug('matched using %s format', format.momentFormat);
+          log.debug('matched "%s" input using "%s" format (%s direction)', subject, format.momentFormat, format.direction || 'no');
 
           matches.push({
             date: date.format('YYYY-MM-DD')
@@ -180,7 +178,7 @@ export default (input: string, userConfiguration: UserConfigurationType = defaul
 
           words = words.slice(wordOffset);
 
-          log.debug('matched using %s format', format.momentFormat);
+          log.debug('matched "%s" input using "%s" format (%s direction)', subject, format.momentFormat, format.direction || 'no');
 
           matches.push({
             date: maybeDate.format('YYYY-MM-DD')
