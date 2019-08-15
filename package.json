@@ -20,39 +20,39 @@
   },
   "dependencies": {
     "cartesian": "^1.0.1",
-    "cldr": "^5.3.0",
+    "cldr": "^5.4.1",
     "moment": "^2.24.0",
     "moment-timezone": "^0.5.26",
-    "roarr": "^2.13.2"
+    "roarr": "^2.14.0"
   },
   "description": "Extracts date from an arbitrary text input.",
   "devDependencies": {
-    "@babel/cli": "^7.5.0",
-    "@babel/core": "^7.5.0",
-    "@babel/node": "^7.5.0",
+    "@babel/cli": "^7.5.5",
+    "@babel/core": "^7.5.5",
+    "@babel/node": "^7.5.5",
     "@babel/plugin-transform-flow-strip-types": "^7.4.4",
-    "@babel/preset-env": "^7.5.2",
-    "@babel/register": "^7.4.4",
+    "@babel/preset-env": "^7.5.5",
+    "@babel/register": "^7.5.5",
     "ava": "^2.2.0",
-    "babel-plugin-istanbul": "^5.1.4",
-    "coveralls": "^3.0.4",
-    "eslint": "^6.0.1",
-    "eslint-config-canonical": "^17.1.1",
-    "flow-bin": "^0.102.0",
+    "babel-plugin-istanbul": "^5.2.0",
+    "coveralls": "^3.0.6",
+    "eslint": "^6.1.0",
+    "eslint-config-canonical": "^17.3.4",
+    "flow-bin": "^0.105.2",
     "flow-copy-source": "^2.0.7",
-    "gitdown": "^2.6.1",
-    "husky": "^3.0.0",
+    "gitdown": "^3.1.1",
+    "husky": "^3.0.3",
     "nyc": "^14.1.1",
-    "semantic-release": "^15.13.18",
-    "sinon": "^7.3.2"
+    "semantic-release": "^15.13.21",
+    "sinon": "^7.4.1"
   },
   "engines": {
     "node": ">6"
   },
   "husky": {
     "hooks": {
-      "post-commit": "npm run create-readme && git add README.md && git commit -m 'docs: generate docs' --no-verify",
-      "pre-commit": "npm run lint && npm run test && npm run build"
+      "pre-commit": "npm run lint && npm run test && npm run build",
+      "pre-push": "gitdown ./.README/README.md --output-file ./README.md --check"
     }
   },
   "keywords": [
