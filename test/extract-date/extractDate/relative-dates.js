@@ -2,7 +2,7 @@
 
 import test, {
   afterEach,
-  beforeEach
+  beforeEach,
 } from 'ava';
 import sinon from 'sinon';
 import moment from 'moment';
@@ -22,7 +22,7 @@ test('does not extract relative dates when locale is undefined', (t) => {
   clock.tick(moment('2000-01-01').valueOf());
 
   const configuration = {
-    timezone: 'Europe/London'
+    timezone: 'Europe/London',
   };
 
   t.deepEqual(extractDate('today', configuration), []);
@@ -32,7 +32,7 @@ test('does not extract relative dates when timezone is undefined', (t) => {
   clock.tick(moment('2000-01-01').valueOf());
 
   const configuration = {
-    locale: 'en'
+    locale: 'en',
   };
 
   t.deepEqual(extractDate('today', configuration), []);
@@ -43,7 +43,7 @@ test('extracts relative date (yesterday)', (t) => {
 
   const configuration = {
     locale: 'en',
-    timezone: 'Europe/London'
+    timezone: 'Europe/London',
   };
 
   t.deepEqual(extractDate('yesterday', configuration), [{date: '2000-01-01'}]);
@@ -54,7 +54,7 @@ test('extracts relative date (today)', (t) => {
 
   const configuration = {
     locale: 'en',
-    timezone: 'Europe/London'
+    timezone: 'Europe/London',
   };
 
   t.deepEqual(extractDate('today', configuration), [{date: '2000-01-01'}]);
@@ -65,7 +65,7 @@ test('extracts relative date (tomorrow)', (t) => {
 
   const configuration = {
     locale: 'en',
-    timezone: 'Europe/London'
+    timezone: 'Europe/London',
   };
 
   t.deepEqual(extractDate('tomorrow', configuration), [{date: '2000-01-02'}]);

@@ -12,16 +12,16 @@ import Logger from './Logger';
 import type {
   ConfigurationType,
   DateMatchType,
-  UserConfigurationType
+  UserConfigurationType,
 } from './types';
 
 const log = Logger.child({
-  namespace: 'extractDate'
+  namespace: 'extractDate',
 });
 
 const defaultConfiguration = {
   maximumAge: Infinity,
-  minimumAge: Infinity
+  minimumAge: Infinity,
 };
 
 // eslint-disable-next-line complexity
@@ -34,7 +34,7 @@ export default (input: string, userConfiguration: UserConfigurationType = defaul
 
   const configuration: ConfigurationType = {
     ...defaultConfiguration,
-    ...userConfiguration
+    ...userConfiguration,
   };
 
   if (configuration.locale && !cldr.localeIds.includes(configuration.locale)) {
@@ -54,7 +54,7 @@ export default (input: string, userConfiguration: UserConfigurationType = defaul
   }
 
   log.debug({
-    configuration
+    configuration,
   }, 'attempting to extract date from "%s" input', normalizedInput);
 
   const formats = createFormats();
@@ -87,7 +87,7 @@ export default (input: string, userConfiguration: UserConfigurationType = defaul
             log.debug('matched "%s" input using "%s" format (%s direction)', subject, format.momentFormat, format.direction || 'no');
 
             matches.push({
-              date: maybeDate
+              date: maybeDate,
             });
           }
         }
@@ -100,7 +100,7 @@ export default (input: string, userConfiguration: UserConfigurationType = defaul
           log.debug('matched "%s" input using "%s" format (%s direction)', subject, format.momentFormat, format.direction || 'no');
 
           matches.push({
-            date: date.format('YYYY-MM-DD')
+            date: date.format('YYYY-MM-DD'),
           });
         }
       } else {
@@ -135,7 +135,7 @@ export default (input: string, userConfiguration: UserConfigurationType = defaul
           log.debug('matched "%s" input using "%s" format (%s direction)', subject, format.momentFormat, format.direction || 'no');
 
           matches.push({
-            date: date.format('YYYY-MM-DD')
+            date: date.format('YYYY-MM-DD'),
           });
         } else {
           const date = moment(subject, format.momentFormat, true);
@@ -181,7 +181,7 @@ export default (input: string, userConfiguration: UserConfigurationType = defaul
           log.debug('matched "%s" input using "%s" format (%s direction)', subject, format.momentFormat, format.direction || 'no');
 
           matches.push({
-            date: maybeDate.format('YYYY-MM-DD')
+            date: maybeDate.format('YYYY-MM-DD'),
           });
         }
       }

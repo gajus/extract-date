@@ -2,7 +2,7 @@
 
 import test, {
   afterEach,
-  beforeEach
+  beforeEach,
 } from 'ava';
 import sinon from 'sinon';
 import moment from 'moment';
@@ -24,11 +24,11 @@ test('extracts multiple dates', (t) => {
   const actual = extractDate(moment().format('YYYY-MM-DD') + ' ' + moment().add(1, 'day').format('YYYY-MM-DD'));
   const expected = [
     {
-      date: moment().format('YYYY-MM-DD')
+      date: moment().format('YYYY-MM-DD'),
     },
     {
-      date: moment().add(1, 'day').format('YYYY-MM-DD')
-    }
+      date: moment().add(1, 'day').format('YYYY-MM-DD'),
+    },
   ];
 
   t.deepEqual(actual, expected);

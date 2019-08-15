@@ -2,7 +2,7 @@
 
 import test, {
   afterEach,
-  beforeEach
+  beforeEach,
 } from 'ava';
 import sinon from 'sinon';
 import moment from 'moment';

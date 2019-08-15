@@ -1,7 +1,7 @@
 // @flow
 
 export type DateMatchType = {|
-  +date: string
+  +date: string,
 |};
 
 export type DirectionType = 'DM' | 'DMY' | 'DYM' | 'MD' | 'YDM' | 'YMD' | 'MDY';
@@ -11,7 +11,7 @@ export type UserConfigurationType = {|
   +locale?: string,
   +maximumAge?: number,
   +minimumAge?: number,
-  +timezone?: string
+  +timezone?: string,
 |};
 
 export type ConfigurationType = {|
@@ -19,5 +19,5 @@ export type ConfigurationType = {|
   +locale: string,
   +maximumAge: number,
   +minimumAge: number,
-  +timezone?: string
+  +timezone?: string,
 |};

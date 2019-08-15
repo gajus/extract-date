@@ -9,303 +9,303 @@ export default () => {
   // https://en.wikipedia.org/wiki/Date_format_by_country
   const yearFirstDashSeparator = [
     {
-      momentFormat: 'YYYY-MM-DD'
+      momentFormat: 'YYYY-MM-DD',
     },
     {
-      momentFormat: 'YYYY-M-D'
-    }
+      momentFormat: 'YYYY-M-D',
+    },
   ];
 
   const yearFirstSlashSeparator = [
     {
-      momentFormat: 'YYYY/MM/DD'
+      momentFormat: 'YYYY/MM/DD',
     },
     {
-      momentFormat: 'YYYY/M/D'
-    }
+      momentFormat: 'YYYY/M/D',
+    },
   ];
 
   const yearFirstDotSeparator = [
     {
       direction: 'YMD',
-      momentFormat: 'YYYY.MM.DD'
+      momentFormat: 'YYYY.MM.DD',
     },
     {
       direction: 'YMD',
-      momentFormat: 'YYYY.M.D'
+      momentFormat: 'YYYY.M.D',
     },
     {
       direction: 'YDM',
-      momentFormat: 'YYYY.DD.MM'
+      momentFormat: 'YYYY.DD.MM',
     },
     {
       direction: 'YDM',
-      momentFormat: 'YYYY.D.M'
-    }
+      momentFormat: 'YYYY.D.M',
+    },
   ];
 
   const yearLastDashSeparator = [
     {
       direction: 'DMY',
-      momentFormat: 'DD-MM-YYYY'
+      momentFormat: 'DD-MM-YYYY',
     },
     {
       direction: 'DMY',
-      momentFormat: 'D-M-YYYY'
+      momentFormat: 'D-M-YYYY',
     },
     {
       direction: 'MDY',
-      momentFormat: 'MM-DD-YYYY'
+      momentFormat: 'MM-DD-YYYY',
     },
     {
       direction: 'MDY',
-      momentFormat: 'M-D-YYYY'
-    }
+      momentFormat: 'M-D-YYYY',
+    },
   ];
 
   const yearLastDotSeparator = [
     {
       direction: 'DMY',
-      momentFormat: 'DD.MM.YYYY'
+      momentFormat: 'DD.MM.YYYY',
     },
     {
       direction: 'DMY',
-      momentFormat: 'D.M.YYYY'
+      momentFormat: 'D.M.YYYY',
     },
     {
       direction: 'MDY',
-      momentFormat: 'MM.DD.YYYY'
+      momentFormat: 'MM.DD.YYYY',
     },
     {
       direction: 'MDY',
-      momentFormat: 'M.D.YYYY'
+      momentFormat: 'M.D.YYYY',
     },
     {
       direction: 'DMY',
-      momentFormat: 'DD.MM.YY'
+      momentFormat: 'DD.MM.YY',
     },
     {
       direction: 'DMY',
-      momentFormat: 'D.M.YY'
-    }
+      momentFormat: 'D.M.YY',
+    },
   ];
 
   const yearLastSlashSeparator = [
     {
       direction: 'DMY',
-      momentFormat: 'DD/MM/YYYY'
+      momentFormat: 'DD/MM/YYYY',
     },
     {
       direction: 'DMY',
-      momentFormat: 'D/M/YYYY'
+      momentFormat: 'D/M/YYYY',
     },
     {
       direction: 'MDY',
-      momentFormat: 'MM/DD/YYYY'
+      momentFormat: 'MM/DD/YYYY',
     },
     {
       direction: 'MDY',
-      momentFormat: 'M/D/YYYY'
+      momentFormat: 'M/D/YYYY',
     },
     {
       direction: 'MDY',
-      momentFormat: 'MM/DD/YY'
+      momentFormat: 'MM/DD/YY',
     },
     {
       direction: 'DMY',
-      momentFormat: 'DD/MM/YY'
+      momentFormat: 'DD/MM/YY',
     },
     {
       direction: 'DMY',
-      momentFormat: 'D/M/YY'
+      momentFormat: 'D/M/YY',
     },
     {
       direction: 'MDY',
-      momentFormat: 'M/D/YY'
-    }
+      momentFormat: 'M/D/YY',
+    },
   ];
 
   const localised = [
     ...cartesian([
       [
         'Do',
-        'D'
+        'D',
       ],
       [
         'MMMM',
-        'MMM'
+        'MMM',
       ],
       [
-        'YYYY'
-      ]
+        'YYYY',
+      ],
     ])
       .map((combination) => {
         return {
-          momentFormat: combination.join(' ')
+          momentFormat: combination.join(' '),
         };
       }),
     ...cartesian([
       [
         'MMMM',
-        'MMM'
+        'MMM',
       ],
       [
-        'YYYY'
+        'YYYY',
       ],
       [
         'Do',
-        'D'
-      ]
+        'D',
+      ],
     ])
       .map((combination) => {
         return {
-          momentFormat: combination.join(' ')
+          momentFormat: combination.join(' '),
         };
       }),
     {
-      momentFormat: 'MMMM YYYY ddd Do'
+      momentFormat: 'MMMM YYYY ddd Do',
     },
     {
-      momentFormat: 'MMMM YYYY ddd D'
-    }
+      momentFormat: 'MMMM YYYY ddd D',
+    },
   ];
 
   const impliedYearLocalised = [
     ...cartesian([
       [
         'dddd',
-        'ddd'
+        'ddd',
       ],
       [
         'MMMM',
-        'MMM'
+        'MMM',
       ],
       [
         'DD',
         'Do',
-        'D'
-      ]
+        'D',
+      ],
     ])
       .map((combination) => {
         return {
-          momentFormat: combination.join(' ')
+          momentFormat: combination.join(' '),
         };
       }),
     ...cartesian([
       [
         'dddd',
-        'ddd'
+        'ddd',
       ],
       [
         'DD',
         'Do',
-        'D'
+        'D',
       ],
       [
         'MMMM',
-        'MMM'
-      ]
+        'MMM',
+      ],
     ])
       .map((combination) => {
         return {
-          momentFormat: combination.join(' ')
+          momentFormat: combination.join(' '),
         };
       }),
     ...cartesian([
       [
         'MMMM',
-        'MMM'
+        'MMM',
       ],
       [
         'DD',
         'Do',
-        'D'
-      ]
+        'D',
+      ],
     ])
       .map((combination) => {
         return {
-          momentFormat: combination.join(' ')
+          momentFormat: combination.join(' '),
         };
       }),
     ...cartesian([
       [
         'DD',
         'Do',
-        'D'
+        'D',
       ],
       [
         'MMMM',
-        'MMM'
-      ]
+        'MMM',
+      ],
     ])
       .map((combination) => {
         return {
-          momentFormat: combination.join(' ')
+          momentFormat: combination.join(' '),
         };
-      })
+      }),
   ];
 
   const impliedYear = [
     ...cartesian([
       [
         'DD',
-        'D'
+        'D',
       ],
       [
         '/',
         '-',
-        '.'
+        '.',
       ],
       [
         'MM',
-        'M'
-      ]
+        'M',
+      ],
     ])
       .map((combination) => {
         return {
           direction: 'DM',
-          momentFormat: combination.join('')
+          momentFormat: combination.join(''),
         };
       }),
     ...cartesian([
       [
         'MM',
-        'M'
+        'M',
       ],
       [
         '/',
         '-',
-        '.'
+        '.',
       ],
       [
         'DD',
-        'D'
-      ]
+        'D',
+      ],
     ])
       .map((combination) => {
         return {
           direction: 'MD',
-          momentFormat: combination.join('')
+          momentFormat: combination.join(''),
         };
-      })
+      }),
   ];
 
   const relative = [
     {
       momentFormat: 'R',
-      test: false
+      test: false,
     },
     {
-      momentFormat: 'dddd'
+      momentFormat: 'dddd',
     },
     {
-      momentFormat: 'ddd'
-    }
+      momentFormat: 'ddd',
+    },
   ];
 
   return [
     {
-      momentFormat: 'YYYYMMDD'
+      momentFormat: 'YYYYMMDD',
     },
     ...yearFirstDashSeparator,
     ...yearFirstDotSeparator,
@@ -316,7 +316,7 @@ export default () => {
     ...localised,
     ...impliedYearLocalised,
     ...impliedYear,
-    ...relative
+    ...relative,
   ]
     .map((format) => {
       return {
@@ -324,7 +324,7 @@ export default () => {
         specificity: calculateSpecificity(format.momentFormat),
         wordCount: format.momentFormat.replace(/[^ ]/g, '').length + 1,
         yearIsExplicit: format.momentFormat.includes('YYYY'),
-        ...format
+        ...format,
       };
     })
     .sort((a, b) => {

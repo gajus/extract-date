@@ -7,26 +7,26 @@ test('creates an array of fixed length text slices, each offset by 1 character',
   t.deepEqual(createMovingChunks(['a', 'b', 'c', 'd'], 2), [
     [
       'a',
-      'b'
+      'b',
     ],
     [
       'b',
-      'c'
+      'c',
     ],
     [
       'c',
-      'd'
-    ]
+      'd',
+    ],
   ]);
 
   t.deepEqual(createMovingChunks(['a', 'b', 'c'], 2), [
     [
       'a',
-      'b'
+      'b',
     ],
     [
       'b',
-      'c'
-    ]
+      'c',
+    ],
   ]);
 });

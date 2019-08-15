@@ -7,19 +7,19 @@ import calculateSpecificity from '../../src/calculateSpecificity';
 test('tokens including YYYY, (MMMM, MM, MM, M), (DD, D, Do) have the highest specificity', (t) => {
   const formats = cartesian([
     [
-      'YYYY'
+      'YYYY',
     ],
     [
       'MMMM',
       'MMM',
       'MM',
-      'M'
+      'M',
     ],
     [
       'DD',
       'D',
-      'Do'
-    ]
+      'Do',
+    ],
   ]);
 
   for (const tokens of formats) {
@@ -33,7 +33,7 @@ test('tokens without year, month or month date have the lowest specificity', (t)
   const formats = [
     'dddd',
     'ddd',
-    'R'
+    'R',
   ];
 
   for (const format of formats) {

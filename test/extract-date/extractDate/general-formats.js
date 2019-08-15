@@ -2,7 +2,7 @@
 
 import test, {
   afterEach,
-  beforeEach
+  beforeEach,
 } from 'ava';
 import sinon from 'sinon';
 import moment from 'moment';
@@ -48,7 +48,7 @@ const subjects = formats
       date: currentDate.format('YYYY-MM-DD'),
       direction: format.direction,
       input: currentDate.format(format.momentFormat),
-      momentFormat: format.momentFormat
+      momentFormat: format.momentFormat,
     };
   });
 

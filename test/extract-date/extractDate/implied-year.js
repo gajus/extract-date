@@ -2,7 +2,7 @@
 
 import test, {
   afterEach,
-  beforeEach
+  beforeEach,
 } from 'ava';
 import sinon from 'sinon';
 import moment from 'moment';
@@ -23,7 +23,7 @@ test('assumes last year if month difference is greater or equal to `maximumAge`'
 
   const configuration = {
     direction: 'MD',
-    maximumAge: 10
+    maximumAge: 10,
   };
 
   t.deepEqual(extractDate('01-01', configuration), [{date: '2000-01-01'}]);
@@ -46,7 +46,7 @@ test('does not assume last year when `maximumAge` is `Infinity`', (t) => {
 
   const configuration = {
     direction: 'MD',
-    maximumAge: Infinity
+    maximumAge: Infinity,
   };
 
   t.deepEqual(extractDate('01-01', configuration), [{date: '2000-01-01'}]);
@@ -68,7 +68,7 @@ test('increments year value if month difference is greater or equal to `minimumA
 
   const configuration = {
     direction: 'MD',
-    minimumAge: 2
+    minimumAge: 2,
   };
 
   t.deepEqual(extractDate('01-01', configuration), [{date: '2001-01-01'}]);
@@ -91,7 +91,7 @@ test('does not increment year value if `minimumAge` is `Infinity`', (t) => {
 
   const configuration = {
     direction: 'MD',
-    minimumAge: Infinity
+    minimumAge: Infinity,
   };
 
   t.deepEqual(extractDate('01-01', configuration), [{date: '2000-01-01'}]);
@@ -114,7 +114,7 @@ test('`maximumAge` and `minimumAge` can be combined', (t) => {
   const configuration = {
     direction: 'MD',
     maximumAge: 2,
-    minimumAge: 2
+    minimumAge: 2,
   };
 
   t.deepEqual(extractDate('01-01', configuration), [{date: '2001-01-01'}]);

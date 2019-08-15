@@ -10,7 +10,7 @@ const normalizedFixtureDates = fixtureDates
   .map((fixture) => {
     return {
       ...fixture,
-      subject: fixture.subject.trim()
+      subject: fixture.subject.trim(),
     };
   })
   .map((fixture) => {
@@ -28,8 +28,8 @@ const normalizedFixtureDates = fixtureDates
       configuration: {
         ...fixture.configuration,
         maximumAge: Infinity,
-        minimumAge: Infinity
-      }
+        minimumAge: Infinity,
+      },
     };
   });
 
