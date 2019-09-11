@@ -3,7 +3,7 @@
 /* eslint-disable no-continue, no-negated-condition */
 
 import moment from 'moment-timezone';
-import cldr from 'cldr';
+import dictionary from './dictionary.json';
 import createMovingChunks from './createMovingChunks';
 import extractRelativeDate from './extractRelativeDate';
 import createFormats from './createFormats';
@@ -37,7 +37,7 @@ export default (input: string, userConfiguration: UserConfigurationType = defaul
     ...userConfiguration,
   };
 
-  if (configuration.locale && !cldr.localeIds.includes(configuration.locale)) {
+  if (configuration.locale && !dictionary[configuration.locale]) {
     throw new Error('No translation available for the target locale.');
   }
 
