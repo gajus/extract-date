@@ -3,7 +3,7 @@
 /* eslint-disable no-continue, no-negated-condition */
 
 import moment from 'moment-timezone';
-import dictionary from './dictionary.json';
+import dictionary from 'relative-date-names';
 import createMovingChunks from './createMovingChunks';
 import extractRelativeDate from './extractRelativeDate';
 import createFormats from './createFormats';

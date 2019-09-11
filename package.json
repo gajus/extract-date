@@ -22,6 +22,7 @@
     "cartesian": "^1.0.1",
     "moment": "^2.24.0",
     "moment-timezone": "^0.5.26",
+    "relative-date-names": "^1.0.4",
     "roarr": "^2.14.1"
   },
   "description": "Extracts date from an arbitrary text input.",
