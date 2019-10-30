@@ -24,6 +24,8 @@ const defaultConfiguration = {
   minimumAge: Infinity,
 };
 
+const formats = createFormats();
+
 // eslint-disable-next-line complexity
 export default (input: string, userConfiguration: UserConfigurationType = defaultConfiguration): $ReadOnlyArray<DateMatchType> => {
   log.debug('attempting to extract date from "%s" input', input);
@@ -56,8 +58,6 @@ export default (input: string, userConfiguration: UserConfigurationType = defaul
   log.debug({
     configuration,
   }, 'attempting to extract date from "%s" input', normalizedInput);
-
-  const formats = createFormats();
 
   let words = normalizedInput.split(' ');
 
