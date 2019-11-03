@@ -16,7 +16,7 @@ export type UserConfigurationType = {|
 
 export type ConfigurationType = {|
   +direction?: DirectionType,
-  +locale: string,
+  +locale?: string,
   +maximumAge: number,
   +minimumAge: number,
   +timezone?: string,
