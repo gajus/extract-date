@@ -48,6 +48,9 @@ extractDate('uses `direction` to resolve ambiguous dates 02/01/2000', {direction
 extractDate('uses `timezone` to resolve relative dates such as today or tomorrow', {timezone: 'Europe/London'});
 // [{date: '2000-01-02'}, {date: '2000-01-03'}] (assuming that today is 2000-01-02)
 
+extractDate('extracts dates using locales May 1, 2017', {locale: 'en'});
+// [{date: '2015-05-01'}]
+
 ```
 
 ### Configuration
@@ -55,6 +58,7 @@ extractDate('uses `timezone` to resolve relative dates such as today or tomorrow
 |Name|Description|Default|
 |---|---|---|
 |`direction`|Token identifying the order of numeric date attributes within the string. Possible values: DM, DMY, DYM, MD, YDM, YMD. Used to resolve ambiguous dates, e.g. DD/MM/YYYY and MM/DD/YYYY.|N/A|
+|`locale`|Required when date includes localized names (e.g. month names)|N/A|
 |`maximumAge`|See [Date resolution without year](#date-resolution-without-year).|`Infinity`|
 |`minimumAge`|See [Date resolution without year](#date-resolution-without-year).|`Infinity`|
 |`timezone`|[TZ database name](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones). Used to resolve relative dates ("Today", "Tomorrow").|N/A|

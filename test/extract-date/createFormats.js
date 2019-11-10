@@ -6,10 +6,12 @@ import createFormats from '../../src/createFormats';
 const expectedOrder = `MMMM YYYY ddd Do
 MMMM YYYY ddd D
 Do MMMM YYYY
+MMMM Do YYYY
 MMMM YYYY Do
 D MMMM YYYY
 Do MMM YYYY
 MMM YYYY Do
+MMMM D YYYY
 MMMM YYYY D
 D MMM YYYY
 MMM YYYY D

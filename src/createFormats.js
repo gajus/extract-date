@@ -126,6 +126,12 @@ export default () => {
   ];
 
   const localised = [
+    {
+      momentFormat: 'MMMM D YYYY',
+    },
+    {
+      momentFormat: 'MMMM Do YYYY',
+    },
     ...cartesian([
       [
         'Do',
