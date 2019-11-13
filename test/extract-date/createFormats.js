@@ -3,107 +3,107 @@
 import test from 'ava';
 import createFormats from '../../src/createFormats';
 
-const expectedOrder = `MMMM YYYY ddd Do
-MMMM YYYY ddd D
-Do MMMM YYYY
-MMMM Do YYYY
-MMMM YYYY Do
-D MMMM YYYY
-Do MMM YYYY
-MMM YYYY Do
-MMMM D YYYY
-MMMM YYYY D
-D MMM YYYY
-MMM YYYY D
-dddd DD MMMM
-dddd Do MMMM
-dddd MMMM DD
-dddd MMMM Do
-ddd DD MMMM
-ddd Do MMMM
-ddd MMMM DD
-ddd MMMM Do
-dddd D MMMM
-dddd DD MMM
-dddd Do MMM
-dddd MMM DD
-dddd MMM Do
-dddd MMMM D
-ddd D MMMM
-ddd DD MMM
-ddd Do MMM
-ddd MMM DD
-ddd MMM Do
-ddd MMMM D
-dddd D MMM
-dddd MMM D
-ddd D MMM
-ddd MMM D
-DD MMMM
-Do MMMM
-MMMM DD
-MMMM Do
-D MMMM
-DD MMM
-Do MMM
-MMM DD
-MMM Do
-MMMM D
-D MMM
-MMM D
-DD-MM-YYYY
-DD.MM.YYYY
-DD/MM/YYYY
-MM-DD-YYYY
-MM.DD.YYYY
-MM/DD/YYYY
-YYYY-MM-DD
-YYYY.DD.MM
-YYYY.MM.DD
-YYYY/MM/DD
-D-M-YYYY
-D.M.YYYY
-D/M/YYYY
-M-D-YYYY
-M.D.YYYY
-M/D/YYYY
-YYYY-M-D
-YYYY.D.M
-YYYY.M.D
-YYYY/M/D
-YYYYMMDD
-DD.MM.YY
-DD/MM/YY
-MM/DD/YY
-D.M.YY
-D/M/YY
-M/D/YY
-DD-MM
-DD.MM
-DD/MM
-MM-DD
-MM.DD
-MM/DD
-D-MM
-D.MM
-D/MM
-DD-M
-DD.M
-DD/M
-M-DD
-M.DD
-M/DD
-MM-D
-MM.D
-MM/D
-D-M
-D.M
-D/M
-M-D
-M.D
-M/D
-dddd
-ddd
+const expectedOrder = `MMMM yyyy EEE do
+MMMM yyyy EEE d
+do MMMM yyyy
+MMMM do yyyy
+MMMM yyyy do
+d MMMM yyyy
+do MMM yyyy
+MMM yyyy do
+MMMM d yyyy
+MMMM yyyy d
+d MMM yyyy
+MMM yyyy d
+EEEE dd MMMM
+EEEE do MMMM
+EEEE MMMM dd
+EEEE MMMM do
+EEE dd MMMM
+EEE do MMMM
+EEE MMMM dd
+EEE MMMM do
+EEEE d MMMM
+EEEE dd MMM
+EEEE do MMM
+EEEE MMM dd
+EEEE MMM do
+EEEE MMMM d
+EEE d MMMM
+EEE dd MMM
+EEE do MMM
+EEE MMM dd
+EEE MMM do
+EEE MMMM d
+EEEE d MMM
+EEEE MMM d
+EEE d MMM
+EEE MMM d
+dd MMMM
+do MMMM
+MMMM dd
+MMMM do
+d MMMM
+dd MMM
+do MMM
+MMM dd
+MMM do
+MMMM d
+d MMM
+MMM d
+dd-MM-yyyy
+dd.MM.yyyy
+dd/MM/yyyy
+MM-dd-yyyy
+MM.dd.yyyy
+MM/dd/yyyy
+yyyy-MM-dd
+yyyy.dd.MM
+yyyy.MM.dd
+yyyy/MM/dd
+d-M-yyyy
+d.M.yyyy
+d/M/yyyy
+M-d-yyyy
+M.d.yyyy
+M/d/yyyy
+yyyy-M-d
+yyyy.d.M
+yyyy.M.d
+yyyy/M/d
+yyyyMMdd
+dd.MM.yy
+dd/MM/yy
+MM/dd/yy
+d.M.yy
+d/M/yy
+M/d/yy
+dd-MM
+dd.MM
+dd/MM
+MM-dd
+MM.dd
+MM/dd
+d-MM
+d.MM
+d/MM
+dd-M
+dd.M
+dd/M
+M-dd
+M.dd
+M/dd
+MM-d
+MM.d
+MM/d
+d-M
+d.M
+d/M
+M-d
+M.d
+M/d
+EEEE
+EEE
 R`;
 
 test('orders formats by their specificity (resolves conflicts using localeCompare)', (t) => {
@@ -111,7 +111,7 @@ test('orders formats by their specificity (resolves conflicts using localeCompar
 
   const order = formats
     .map((format) => {
-      return format.momentFormat;
+      return format.dateFnsFormat;
     })
     .join('\n');
 

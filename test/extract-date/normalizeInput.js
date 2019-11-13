@@ -3,7 +3,7 @@
 import test from 'ava';
 import normalizeInput from '../../src/normalizeInput';
 
-test('splits YYYY-MM-DDTHH:mm', (t) => {
+test('splits yyyy-MM-ddTHH:mm', (t) => {
   t.true(normalizeInput('2018-01-01T14:00 2018-01-02T15:00') === '2018-01-01 14:00 2018-01-02 15:00');
 });
 

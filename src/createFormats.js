@@ -5,149 +5,149 @@ import calculateSpecificity from './calculateSpecificity';
 
 export default () => {
   // The reason `yearFirstDashSeparator` and `yearFirstSlashSeparator` formats do not have direction is because
-  // there are no known regions that use YYYY-DD-MM format.
+  // there are no known regions that use yyyy-dd-MM format.
   // https://en.wikipedia.org/wiki/Date_format_by_country
   const yearFirstDashSeparator = [
     {
-      momentFormat: 'YYYY-MM-DD',
+      dateFnsFormat: 'yyyy-MM-dd',
     },
     {
-      momentFormat: 'YYYY-M-D',
+      dateFnsFormat: 'yyyy-M-d',
     },
   ];
 
   const yearFirstSlashSeparator = [
     {
-      momentFormat: 'YYYY/MM/DD',
+      dateFnsFormat: 'yyyy/MM/dd',
     },
     {
-      momentFormat: 'YYYY/M/D',
+      dateFnsFormat: 'yyyy/M/d',
     },
   ];
 
   const yearFirstDotSeparator = [
     {
+      dateFnsFormat: 'yyyy.MM.dd',
       direction: 'YMD',
-      momentFormat: 'YYYY.MM.DD',
     },
     {
+      dateFnsFormat: 'yyyy.M.d',
       direction: 'YMD',
-      momentFormat: 'YYYY.M.D',
     },
     {
+      dateFnsFormat: 'yyyy.dd.MM',
       direction: 'YDM',
-      momentFormat: 'YYYY.DD.MM',
     },
     {
+      dateFnsFormat: 'yyyy.d.M',
       direction: 'YDM',
-      momentFormat: 'YYYY.D.M',
     },
   ];
 
   const yearLastDashSeparator = [
     {
+      dateFnsFormat: 'dd-MM-yyyy',
       direction: 'DMY',
-      momentFormat: 'DD-MM-YYYY',
     },
     {
+      dateFnsFormat: 'd-M-yyyy',
       direction: 'DMY',
-      momentFormat: 'D-M-YYYY',
     },
     {
+      dateFnsFormat: 'MM-dd-yyyy',
       direction: 'MDY',
-      momentFormat: 'MM-DD-YYYY',
     },
     {
+      dateFnsFormat: 'M-d-yyyy',
       direction: 'MDY',
-      momentFormat: 'M-D-YYYY',
     },
   ];
 
   const yearLastDotSeparator = [
     {
+      dateFnsFormat: 'dd.MM.yyyy',
       direction: 'DMY',
-      momentFormat: 'DD.MM.YYYY',
     },
     {
+      dateFnsFormat: 'd.M.yyyy',
       direction: 'DMY',
-      momentFormat: 'D.M.YYYY',
     },
     {
+      dateFnsFormat: 'MM.dd.yyyy',
       direction: 'MDY',
-      momentFormat: 'MM.DD.YYYY',
     },
     {
+      dateFnsFormat: 'M.d.yyyy',
       direction: 'MDY',
-      momentFormat: 'M.D.YYYY',
     },
     {
+      dateFnsFormat: 'dd.MM.yy',
       direction: 'DMY',
-      momentFormat: 'DD.MM.YY',
     },
     {
+      dateFnsFormat: 'd.M.yy',
       direction: 'DMY',
-      momentFormat: 'D.M.YY',
     },
   ];
 
   const yearLastSlashSeparator = [
     {
+      dateFnsFormat: 'dd/MM/yyyy',
       direction: 'DMY',
-      momentFormat: 'DD/MM/YYYY',
     },
     {
+      dateFnsFormat: 'd/M/yyyy',
       direction: 'DMY',
-      momentFormat: 'D/M/YYYY',
     },
     {
+      dateFnsFormat: 'MM/dd/yyyy',
       direction: 'MDY',
-      momentFormat: 'MM/DD/YYYY',
     },
     {
+      dateFnsFormat: 'M/d/yyyy',
       direction: 'MDY',
-      momentFormat: 'M/D/YYYY',
     },
     {
+      dateFnsFormat: 'MM/dd/yy',
       direction: 'MDY',
-      momentFormat: 'MM/DD/YY',
     },
     {
+      dateFnsFormat: 'dd/MM/yy',
       direction: 'DMY',
-      momentFormat: 'DD/MM/YY',
     },
     {
+      dateFnsFormat: 'd/M/yy',
       direction: 'DMY',
-      momentFormat: 'D/M/YY',
     },
     {
+      dateFnsFormat: 'M/d/yy',
       direction: 'MDY',
-      momentFormat: 'M/D/YY',
     },
   ];
 
   const localised = [
     {
-      momentFormat: 'MMMM D YYYY',
+      dateFnsFormat: 'MMMM d yyyy',
     },
     {
-      momentFormat: 'MMMM Do YYYY',
+      dateFnsFormat: 'MMMM do yyyy',
     },
     ...cartesian([
       [
-        'Do',
-        'D',
+        'do',
+        'd',
       ],
       [
         'MMMM',
         'MMM',
       ],
       [
-        'YYYY',
+        'yyyy',
       ],
     ])
       .map((combination) => {
         return {
-          momentFormat: combination.join(' '),
+          dateFnsFormat: combination.join(' '),
         };
       }),
     ...cartesian([
@@ -156,56 +156,56 @@ export default () => {
         'MMM',
       ],
       [
-        'YYYY',
+        'yyyy',
       ],
       [
-        'Do',
-        'D',
+        'do',
+        'd',
       ],
     ])
       .map((combination) => {
         return {
-          momentFormat: combination.join(' '),
+          dateFnsFormat: combination.join(' '),
         };
       }),
     {
-      momentFormat: 'MMMM YYYY ddd Do',
+      dateFnsFormat: 'MMMM yyyy EEE do',
     },
     {
-      momentFormat: 'MMMM YYYY ddd D',
+      dateFnsFormat: 'MMMM yyyy EEE d',
     },
   ];
 
   const impliedYearLocalised = [
     ...cartesian([
       [
-        'dddd',
-        'ddd',
+        'EEEE',
+        'EEE',
       ],
       [
         'MMMM',
         'MMM',
       ],
       [
-        'DD',
-        'Do',
-        'D',
+        'dd',
+        'do',
+        'd',
       ],
     ])
       .map((combination) => {
         return {
-          momentFormat: combination.join(' '),
+          dateFnsFormat: combination.join(' '),
         };
       }),
     ...cartesian([
       [
-        'dddd',
-        'ddd',
+        'EEEE',
+        'EEE',
       ],
       [
-        'DD',
-        'Do',
-        'D',
+        'dd',
+        'do',
+        'd',
       ],
       [
         'MMMM',
@@ -214,7 +214,7 @@ export default () => {
     ])
       .map((combination) => {
         return {
-          momentFormat: combination.join(' '),
+          dateFnsFormat: combination.join(' '),
         };
       }),
     ...cartesian([
@@ -223,21 +223,21 @@ export default () => {
         'MMM',
       ],
       [
-        'DD',
-        'Do',
-        'D',
+        'dd',
+        'do',
+        'd',
       ],
     ])
       .map((combination) => {
         return {
-          momentFormat: combination.join(' '),
+          dateFnsFormat: combination.join(' '),
         };
       }),
     ...cartesian([
       [
-        'DD',
-        'Do',
-        'D',
+        'dd',
+        'do',
+        'd',
       ],
       [
         'MMMM',
@@ -246,7 +246,7 @@ export default () => {
     ])
       .map((combination) => {
         return {
-          momentFormat: combination.join(' '),
+          dateFnsFormat: combination.join(' '),
         };
       }),
   ];
@@ -254,8 +254,8 @@ export default () => {
   const impliedYear = [
     ...cartesian([
       [
-        'DD',
-        'D',
+        'dd',
+        'd',
       ],
       [
         '/',
@@ -269,8 +269,8 @@ export default () => {
     ])
       .map((combination) => {
         return {
+          dateFnsFormat: combination.join(''),
           direction: 'DM',
-          momentFormat: combination.join(''),
         };
       }),
     ...cartesian([
@@ -284,34 +284,34 @@ export default () => {
         '.',
       ],
       [
-        'DD',
-        'D',
+        'dd',
+        'd',
       ],
     ])
       .map((combination) => {
         return {
+          dateFnsFormat: combination.join(''),
           direction: 'MD',
-          momentFormat: combination.join(''),
         };
       }),
   ];
 
   const relative = [
     {
-      momentFormat: 'R',
+      dateFnsFormat: 'R',
       test: false,
     },
     {
-      momentFormat: 'dddd',
+      dateFnsFormat: 'EEEE',
     },
     {
-      momentFormat: 'ddd',
+      dateFnsFormat: 'EEE',
     },
   ];
 
   return [
     {
-      momentFormat: 'YYYYMMDD',
+      dateFnsFormat: 'yyyyMMdd',
     },
     ...yearFirstDashSeparator,
     ...yearFirstDotSeparator,
@@ -326,10 +326,10 @@ export default () => {
   ]
     .map((format) => {
       return {
-        localised: /ddd|mmm/i.test(format.momentFormat),
-        specificity: calculateSpecificity(format.momentFormat),
-        wordCount: format.momentFormat.replace(/[^ ]/g, '').length + 1,
-        yearIsExplicit: format.momentFormat.includes('YYYY'),
+        localised: /eee|mmm/i.test(format.dateFnsFormat),
+        specificity: calculateSpecificity(format.dateFnsFormat),
+        wordCount: format.dateFnsFormat.replace(/[^ ]/g, '').length + 1,
+        yearIsExplicit: format.dateFnsFormat.includes('yyyy'),
         ...format,
       };
     })
@@ -339,7 +339,7 @@ export default () => {
       }
 
       if (b.specificity === a.specificity) {
-        return a.momentFormat.localeCompare(b.momentFormat);
+        return a.dateFnsFormat.localeCompare(b.dateFnsFormat);
       }
 
       return b.specificity - a.specificity;

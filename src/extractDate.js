@@ -1,7 +1,13 @@
 // @flow
 
-/* eslint-disable no-continue, no-negated-condition */
+/* eslint-disable no-continue, no-negated-condition, import/no-namespace */
 
+import {
+  format as formatDate,
+  parse as parseDate,
+  isValid as isValidDate,
+} from 'date-fns';
+import * as locales from 'date-fns/locale';
 import moment from 'moment-timezone';
 import dictionary from 'relative-date-names';
 import createMovingChunks from './createMovingChunks';
@@ -26,6 +32,10 @@ const defaultConfiguration = {
 
 const formats = createFormats();
 
+const dateFnsLocaleMap = {
+  en: 'enUS',
+};
+
 // eslint-disable-next-line complexity
 export default (input: string, userConfiguration: UserConfigurationType = defaultConfiguration): $ReadOnlyArray<DateMatchType> => {
   log.debug('attempting to extract date from "%s" input', input);
@@ -39,8 +49,16 @@ export default (input: string, userConfiguration: UserConfigurationType = defaul
     ...userConfiguration,
   };
 
-  if (configuration.locale && !dictionary[configuration.locale]) {
-    throw new Error('No translation available for the target locale.');
+  const locale = configuration.locale || 'en';
+
+  const dateFnsLocale = locales[dateFnsLocaleMap[locale] || locale];
+
+  if (!dateFnsLocale) {
+    throw new Error('No translation available for the target locale (date-fns).');
+  }
+
+  if (!dictionary[locale]) {
+    throw new Error('No translation available for the target locale (relative dates).');
   }
 
   if (configuration.timezone && !moment.tz.zone(configuration.timezone)) {
@@ -63,6 +81,8 @@ export default (input: string, userConfiguration: UserConfigurationType = defaul
 
   const matches = [];
 
+  const baseDate = new Date();
+
   for (const format of formats) {
     const movingChunks = createMovingChunks(words, format.wordCount);
 
@@ -73,7 +93,7 @@ export default (input: string, userConfiguration: UserConfigurationType = defaul
 
       const subject = movingChunk.join(' ');
 
-      if (format.momentFormat === 'R') {
+      if (format.dateFnsFormat === 'R') {
         if (!configuration.locale) {
           log.trace('cannot attempt format without `locale` configuration');
         } else if (!configuration.timezone) {
@@ -84,40 +104,54 @@ export default (input: string, userConfiguration: UserConfigurationType = defaul
           if (maybeDate) {
             words = words.slice(wordOffset);
 
-            log.debug('matched "%s" input using "%s" format (%s direction)', subject, format.momentFormat, format.direction || 'no');
+            log.debug('matched "%s" input using "%s" format (%s direction)', subject, format.dateFnsFormat, format.direction || 'no');
 
             matches.push({
               date: maybeDate,
             });
           }
         }
-      } else if (format.momentFormat === 'ddd' || format.momentFormat === 'dddd') {
-        const date = moment(subject, format.momentFormat, true);
+      } else if (format.dateFnsFormat === 'EEE' || format.dateFnsFormat === 'EEEE') {
+        const date = parseDate(
+          subject,
+          format.dateFnsFormat,
+          baseDate,
+          {
+            locale: dateFnsLocale,
+          },
+        );
 
-        if (date.isValid()) {
+        if (isValidDate(date)) {
           words = words.slice(wordOffset);
 
-          log.debug('matched "%s" input using "%s" format (%s direction)', subject, format.momentFormat, format.direction || 'no');
+          log.debug('matched "%s" input using "%s" format (%s direction)', subject, format.dateFnsFormat, format.direction || 'no');
 
           matches.push({
-            date: date.format('YYYY-MM-DD'),
+            date: formatDate(date, 'yyyy-MM-dd'),
           });
         }
       } else {
         const yearIsExplicit = typeof format.yearIsExplicit === 'boolean' ? format.yearIsExplicit : true;
 
         if (yearIsExplicit) {
-          const date = moment(subject, format.momentFormat, true);
+          const date = parseDate(
+            subject,
+            format.dateFnsFormat,
+            baseDate,
+            {
+              locale: dateFnsLocale,
+            },
+          );
 
-          if (!date.isValid()) {
+          if (!isValidDate(date)) {
             continue;
           }
 
           const formatDirection = format.direction;
           const configurationDirection = configuration.direction;
 
-          if (formatDirection && configurationDirection && format.momentFormat.includes('YYYY') && formatDirection.replace('Y', '') === configurationDirection.replace('Y', '')) {
-            log.debug('matched format using YYYY; month-day direction matches');
+          if (formatDirection && configurationDirection && format.dateFnsFormat.includes('yyyy') && formatDirection.replace('Y', '') === configurationDirection.replace('Y', '')) {
+            log.debug('matched format using yyyy; month-day direction matches');
           } else if (format.direction && format.direction !== configuration.direction) {
             log.trace('discarding match; direction mismatch');
 
@@ -125,42 +159,58 @@ export default (input: string, userConfiguration: UserConfigurationType = defaul
           }
 
           if (format.direction && !configuration.direction) {
-            log.info('found a match using "%s" format; unsafe to use without `direction` configuration', format.momentFormat);
+            log.info('found a match using "%s" format; unsafe to use without `direction` configuration', format.dateFnsFormat);
 
             continue;
           }
 
           words = words.slice(wordOffset);
 
-          log.debug('matched "%s" input using "%s" format (%s direction)', subject, format.momentFormat, format.direction || 'no');
+          log.debug('matched "%s" input using "%s" format (%s direction)', subject, format.dateFnsFormat, format.direction || 'no');
 
           matches.push({
-            date: date.format('YYYY-MM-DD'),
+            date: formatDate(date, 'yyyy-MM-dd'),
           });
         } else {
-          const date = moment(subject, format.momentFormat, true);
+          const date = parseDate(
+            subject,
+            format.dateFnsFormat,
+            baseDate,
+            {
+              locale: dateFnsLocale,
+            },
+          );
 
-          if (!date.isValid()) {
+          if (!isValidDate(date)) {
             continue;
           }
 
-          const currentMonth = parseInt(moment().format('M'), 10) + parseInt(moment().format('YYYY'), 10) * 12;
-          const parsedMonth = parseInt(date.format('M'), 10) + parseInt(date.format('YYYY'), 10) * 12;
+          const currentYear = parseInt(formatDate(baseDate, 'yyyy'), 10);
+
+          const currentMonth = parseInt(formatDate(baseDate, 'M'), 10) + currentYear * 12;
+          const parsedMonth = parseInt(formatDate(date, 'M'), 10) + parseInt(formatDate(date, 'yyyy'), 10) * 12;
           const difference = parsedMonth - currentMonth;
 
           let useYear;
 
           if (difference >= configuration.maximumAge) {
-            useYear = parseInt(moment().format('YYYY'), 10) - 1;
+            useYear = currentYear - 1;
           } else if (difference < 0 && Math.abs(difference) >= configuration.minimumAge) {
-            useYear = parseInt(moment().format('YYYY'), 10) + 1;
+            useYear = currentYear + 1;
           } else {
-            useYear = parseInt(moment().format('YYYY'), 10);
+            useYear = currentYear;
           }
 
-          const maybeDate = moment(useYear + '-' + date.format('MM-DD'), 'YYYY-MM-DD', true);
+          const maybeDate = parseDate(
+            useYear + '-' + formatDate(date, 'MM-dd'),
+            'yyyy-MM-dd',
+            baseDate,
+            {
+              locale: dateFnsLocale,
+            },
+          );
 
-          if (!maybeDate.isValid()) {
+          if (!isValidDate(maybeDate)) {
             continue;
           }
 
@@ -171,17 +221,17 @@ export default (input: string, userConfiguration: UserConfigurationType = defaul
           }
 
           if (format.direction && !configuration.direction) {
-            log.info('found a match using "%s" format; unsafe to use without "format" configuration', format.momentFormat);
+            log.info('found a match using "%s" format; unsafe to use without "format" configuration', format.dateFnsFormat);
 
             continue;
           }
 
           words = words.slice(wordOffset);
 
-          log.debug('matched "%s" input using "%s" format (%s direction)', subject, format.momentFormat, format.direction || 'no');
+          log.debug('matched "%s" input using "%s" format (%s direction)', subject, format.dateFnsFormat, format.direction || 'no');
 
           matches.push({
-            date: maybeDate.format('YYYY-MM-DD'),
+            date: formatDate(maybeDate, 'yyyy-MM-dd'),
           });
         }
       }

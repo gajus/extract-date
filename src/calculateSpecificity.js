@@ -1,21 +1,21 @@
 // @flow
 
-export default (momentFormat: string): number => {
+export default (dateFnsFormat: string): number => {
   let specificity = 0;
 
-  if (momentFormat.includes('YYYY')) {
+  if (dateFnsFormat.includes('yyyy')) {
     specificity += 40;
-  } else if (momentFormat.includes('YY')) {
+  } else if (dateFnsFormat.includes('yy')) {
     specificity += 20;
   }
 
-  if (momentFormat.includes('M')) {
+  if (dateFnsFormat.includes('M')) {
     specificity += 20;
   }
 
-  if (momentFormat.includes('D')) {
+  if (/d/.test(dateFnsFormat)) {
     specificity += 20;
   }
 
-  return specificity + momentFormat.length;
+  return specificity + dateFnsFormat.length;
 };

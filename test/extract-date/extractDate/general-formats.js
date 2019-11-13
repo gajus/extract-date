@@ -5,7 +5,10 @@ import test, {
   beforeEach,
 } from 'ava';
 import sinon from 'sinon';
-import moment from 'moment';
+import {
+  format as formatDate,
+  parse as parseDate,
+} from 'date-fns';
 import extractDate from '../../../src/extractDate';
 import createFormats from '../../../src/createFormats';
 
@@ -40,38 +43,27 @@ const subjects = formats
   })
   .map((format) => {
     clock = sinon.useFakeTimers();
-    clock.tick(moment('2000-06-01').valueOf());
+    clock.tick(parseDate('2000-06-01', 'yyyy-MM-dd', new Date()).getTime());
 
-    const currentDate = moment();
+    const currentDate = new Date();
 
     return {
-      date: currentDate.format('YYYY-MM-DD'),
+      date: formatDate(currentDate, 'yyyy-MM-dd'),
+      dateFnsFormat: format.dateFnsFormat,
       direction: format.direction,
-      input: currentDate.format(format.momentFormat),
-      momentFormat: format.momentFormat,
+      input: formatDate(currentDate, format.dateFnsFormat),
     };
   });
 
 for (const subject of subjects) {
   // eslint-disable-next-line no-loop-func
-  test('extracts ' + subject.momentFormat + ' from "' + subject.momentFormat + '" input using ' + describeConfiguration(subject) + ' configuration', (t) => {
-    clock.tick(moment('2000-06-01').valueOf());
+  test('extracts ' + subject.dateFnsFormat + ' from "' + subject.input + '" input using ' + describeConfiguration(subject) + ' configuration', (t) => {
+    clock.tick(parseDate('2000-06-01', 'yyyy-MM-dd', new Date()).getTime());
 
     const actual = extractDate(subject.input, subject);
     const expected = subject.date;
 
-    t.true(actual.length === 1);
-    t.true(actual[0].date === expected);
+    t.is(actual.length, 1);
+    t.is(actual[0].date, expected);
   });
-
-  // // eslint-disable-next-line no-loop-func
-  // test('extracts ' + subject.momentFormat + ' from "%w' + subject.momentFormat + '%w" input using ' + describeConfiguration(subject) + ' configuration', (t) => {
-  //   clock.tick(moment('2000-06-01').valueOf());
-  //
-  //   const actual = extractDate('foo ' + subject.input + ' bar', subject);
-  //   const expected = subject.date;
-  //
-  //   t.true(actual.length === 1);
-  //   t.true(actual[0].date === expected);
-  // });
 }

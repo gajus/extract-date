@@ -5,7 +5,11 @@ import test, {
   beforeEach,
 } from 'ava';
 import sinon from 'sinon';
-import moment from 'moment';
+import {
+  addDays,
+  format as formatDate,
+  parse as parseDate,
+} from 'date-fns';
 import extractDate from '../../../src/extractDate';
 
 let clock;
@@ -19,15 +23,15 @@ afterEach(() => {
 });
 
 test('extracts multiple dates', (t) => {
-  clock.tick(moment('2000-06-01').valueOf());
+  clock.tick(parseDate('2000-06-01', 'yyyy-MM-dd', new Date()).valueOf());
 
-  const actual = extractDate(moment().format('YYYY-MM-DD') + ' ' + moment().add(1, 'day').format('YYYY-MM-DD'));
+  const actual = extractDate(formatDate(new Date(), 'yyyy-MM-dd') + ' ' + formatDate(addDays(new Date(), 1), 'yyyy-MM-dd'));
   const expected = [
     {
-      date: moment().format('YYYY-MM-DD'),
+      date: formatDate(new Date(), 'yyyy-MM-dd'),
     },
     {
-      date: moment().add(1, 'day').format('YYYY-MM-DD'),
+      date: formatDate(addDays(new Date(), 1), 'yyyy-MM-dd'),
     },
   ];
 

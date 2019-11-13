@@ -5,7 +5,9 @@ import test, {
   beforeEach,
 } from 'ava';
 import sinon from 'sinon';
-import moment from 'moment';
+import {
+  parse as parseDate,
+} from 'date-fns';
 import extractDate from '../../../src/extractDate';
 
 let clock;
@@ -19,7 +21,7 @@ afterEach(() => {
 });
 
 test('does not extract relative dates when locale is undefined', (t) => {
-  clock.tick(moment('2000-01-01').valueOf());
+  clock.tick(parseDate('2000-01-01', 'yyyy-MM-dd', new Date()).getTime());
 
   const configuration = {
     timezone: 'Europe/London',
@@ -29,7 +31,7 @@ test('does not extract relative dates when locale is undefined', (t) => {
 });
 
 test('does not extract relative dates when timezone is undefined', (t) => {
-  clock.tick(moment('2000-01-01').valueOf());
+  clock.tick(parseDate('2000-01-01', 'yyyy-MM-dd', new Date()).getTime());
 
   const configuration = {
     locale: 'en',
@@ -39,7 +41,7 @@ test('does not extract relative dates when timezone is undefined', (t) => {
 });
 
 test('extracts relative date (yesterday)', (t) => {
-  clock.tick(moment('2000-01-02').valueOf());
+  clock.tick(parseDate('2000-01-02', 'yyyy-MM-dd', new Date()).getTime());
 
   const configuration = {
     locale: 'en',
@@ -50,7 +52,7 @@ test('extracts relative date (yesterday)', (t) => {
 });
 
 test('extracts relative date (today)', (t) => {
-  clock.tick(moment('2000-01-01').valueOf());
+  clock.tick(parseDate('2000-01-01', 'yyyy-MM-dd', new Date()).getTime());
 
   const configuration = {
     locale: 'en',
@@ -61,7 +63,7 @@ test('extracts relative date (today)', (t) => {
 });
 
 test('extracts relative date (tomorrow)', (t) => {
-  clock.tick(moment('2000-01-01').valueOf());
+  clock.tick(parseDate('2000-01-01', 'yyyy-MM-dd', new Date()).getTime());
 
   const configuration = {
     locale: 'en',

@@ -2,7 +2,9 @@
 
 import test from 'ava';
 import sinon from 'sinon';
-import moment from 'moment';
+import {
+  parse as parseDate,
+} from 'date-fns';
 import fixtureDates from '../../fixtures/dates.json';
 import extractDate from '../../../src/extractDate';
 
@@ -34,11 +36,11 @@ const normalizedFixtureDates = fixtureDates
   });
 
 for (const fixtureDate of normalizedFixtureDates) {
-  test('extracts dates from "' + fixtureDate.subject + '" fixture using ' + JSON.stringify(fixtureDate.configuration) + ' configuration at ' + fixtureDate.date + ' date', (t) => {
+  test('extracts dates from "' + fixtureDate.subject + '" fixture using ' + JSON.stringify(fixtureDate.configuration) + ' configuration on ' + fixtureDate.date + ' date', (t) => {
     const clock = sinon.useFakeTimers();
 
     clock.restore();
-    clock.tick(moment(fixtureDate.date).valueOf());
+    clock.tick(parseDate(fixtureDate.date, 'yyyy-MM-dd', new Date()).getTime());
 
     t.deepEqual(extractDate(fixtureDate.subject, fixtureDate.configuration), fixtureDate.matches);
   });

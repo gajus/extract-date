@@ -131,7 +131,7 @@ Given input "foo bar baz qux" and format:
 {
   direction: 'YMD',
   localised: false,
-  momentFormat: 'YYYY MM.DD',
+  dateFnsFormat: 'YYYY MM.DD',
   wordCount: 2,
   yearIsExplicit: true
 }
@@ -153,7 +153,7 @@ collection and the format is attempted against each phrase until a match is foun
 |---|---|
 |`direction`|Identifies the order of numeric date attributes within the string. Possible values: DMY, DYM, YDM, YMD. Used to resolve ambiguous dates, e.g. DD/MM/YYYY and MM/DD/YYYY.|
 |`localised`|Identifies if the date is localised, i.e. includes names of the week day or month. A format that is localised is used only when `locale` configuration is provided.|
-|`momentFormat`|Identifies [`moment`](https://www.npmjs.org/package/moment) format used to attempt date extraction. `moment` is evaluated using the strict parser option.|
+|`dateFnsFormat`|Identifies [`date-fns`](https://www.npmjs.org/package/date-fns) format used to attempt date extraction.|
 |`wordCount`|Identifies how many words make up the date format.|
 |`yearIsExplicit`|Identifies whether the date format includes year.|
 
@@ -163,14 +163,14 @@ Example formats:
 {
   direction: 'YMD',
   localised: false,
-  momentFormat: 'YYYY.MM.DD',
+  dateFnsFormat: 'YYYY.MM.DD',
   wordCount: 1,
   yearIsExplicit: true
 },
 {
   direction: 'DD MMMM',
   localised: true,
-  momentFormat: 'DD MMMM',
+  dateFnsFormat: 'DD MMMM',
   wordCount: 2,
   yearIsExplicit: false
 },

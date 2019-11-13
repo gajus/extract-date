@@ -22,7 +22,7 @@ test('throws an error if invalid `locale` is provided', (t) => {
     extractDate('foo', {
       locale: 'bar',
     });
-  }, 'No translation available for the target locale.');
+  }, 'No translation available for the target locale (date-fns).');
 });
 
 test('throws an error if invalid `timezone` is provided', (t) => {
