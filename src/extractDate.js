@@ -81,7 +81,7 @@ export default (input: string, userConfiguration: UserConfigurationType = defaul
 
   const matches = [];
 
-  const baseDate = new Date();
+  const baseDate = parseDate('12:00', 'HH:mm', new Date());
 
   for (const format of formats) {
     const movingChunks = createMovingChunks(words, format.wordCount);
