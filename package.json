@@ -5,47 +5,47 @@
     "url": "http://gajus.com"
   },
   "ava": {
+    "babel": {
+      "compileAsTests": [
+        "test/helpers/**/*"
+      ]
+    },
     "files": [
-      "test/**/*"
-    ],
-    "helpers": [
-      "test/helpers/**/*"
+      "test/extract-date/**/*"
     ],
     "require": [
       "@babel/register"
-    ],
-    "sources": [
-      "src/**/*"
     ]
   },
   "dependencies": {
     "cartesian": "^1.0.1",
-    "date-fns": "^2.7.0",
+    "date-fns": "^2.9.0",
     "moment": "^2.24.0",
     "moment-timezone": "^0.5.27",
     "relative-date-names": "^1.0.4",
-    "roarr": "^2.14.4"
+    "roarr": "^2.15.2"
   },
   "description": "Extracts date from an arbitrary text input.",
   "devDependencies": {
-    "@babel/cli": "^7.7.0",
-    "@babel/core": "^7.7.2",
-    "@babel/node": "^7.7.0",
-    "@babel/plugin-transform-flow-strip-types": "^7.6.3",
-    "@babel/preset-env": "^7.7.1",
-    "@babel/register": "^7.7.0",
-    "ava": "^2.4.0",
-    "babel-plugin-istanbul": "^5.2.0",
-    "coveralls": "^3.0.7",
-    "eslint": "^6.6.0",
+    "@ava/babel": "^1.0.0",
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.8.4",
+    "@babel/node": "^7.8.4",
+    "@babel/plugin-transform-flow-strip-types": "^7.8.3",
+    "@babel/preset-env": "^7.8.4",
+    "@babel/register": "^7.8.3",
+    "ava": "^3.1.0",
+    "babel-plugin-istanbul": "^6.0.0",
+    "coveralls": "^3.0.9",
+    "eslint": "^6.8.0",
     "eslint-config-canonical": "^18.1.0",
-    "flow-bin": "^0.112.0",
-    "flow-copy-source": "^2.0.8",
+    "flow-bin": "^0.117.0",
+    "flow-copy-source": "^2.0.9",
     "gitdown": "^3.1.2",
-    "husky": "^3.0.9",
-    "nyc": "^14.1.1",
-    "semantic-release": "^15.13.30",
-    "sinon": "^7.5.0"
+    "husky": "^4.2.1",
+    "nyc": "^15.0.0",
+    "semantic-release": "^17.0.2",
+    "sinon": "^8.1.1"
   },
   "engines": {
     "node": ">6"

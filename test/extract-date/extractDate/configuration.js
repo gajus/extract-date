@@ -18,33 +18,41 @@ afterEach(() => {
 });
 
 test('throws an error if invalid `locale` is provided', (t) => {
-  t.throws(() => {
+  const error = t.throws(() => {
     extractDate('foo', {
       locale: 'bar',
     });
-  }, 'No translation available for the target locale (date-fns).');
+  });
+
+  t.is(error.message, 'No translation available for the target locale (date-fns).');
 });
 
 test('throws an error if invalid `timezone` is provided', (t) => {
-  t.throws(() => {
+  const error = t.throws(() => {
     extractDate('foo', {
       timezone: 'bar',
     });
-  }, 'Unrecognized timezone.');
+  });
+
+  t.is(error.message, 'Unrecognized timezone.');
 });
 
 test('throws an error if invalid `maximumAge` is a negative value', (t) => {
-  t.throws(() => {
+  const error = t.throws(() => {
     extractDate('foo', {
       maximumAge: -1,
     });
-  }, '`maximumAge` must be a positive number.');
+  });
+
+  t.is(error.message, '`maximumAge` must be a positive number.');
 });
 
 test('throws an error if invalid `minimumAge` is a negative value', (t) => {
-  t.throws(() => {
+  const error = t.throws(() => {
     extractDate('foo', {
       minimumAge: -1,
     });
-  }, '`minimumAge` must be a positive number.');
+  });
+
+  t.is(error.message, '`minimumAge` must be a positive number.');
 });
